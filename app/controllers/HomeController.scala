@@ -3,6 +3,7 @@ package controllers
 import javax.inject._
 import play.api._
 import play.api.mvc._
+import play.libs._
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -19,6 +20,10 @@ class HomeController @Inject() extends Controller {
    */
   def index = Action {
     Ok(views.html.index("Your new application is ready...")) //calling index method in views
+  }
+
+  def webGL = Action {
+    Ok(views.html.webGL())
   }
 
 
