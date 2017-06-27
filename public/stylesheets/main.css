@@ -11,7 +11,7 @@
   background-color: red;
 }
 
-a.topButtons {
+#topButtons {
   background-color: #66b5ff;
   text-align: center;
   border: none;
@@ -19,9 +19,11 @@ a.topButtons {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 0px 1px;
   cursor: pointer;
   border-radius: 10px;
+  width: 5%;
+  float: right;
 }
 a.topButtons:hover {
   background-color: #80c1ff;

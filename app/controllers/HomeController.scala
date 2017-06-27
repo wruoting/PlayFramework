@@ -22,8 +22,9 @@ class HomeController @Inject() extends Controller {
     Ok(views.html.index("Your new application is ready...")) //calling index method in views
   }
 
-  def webGL = Action {
-    Ok(views.html.webGL())
+
+  def projects = Action {
+    Ok(views.html.projects())
   }
 
 

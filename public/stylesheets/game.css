@@ -1,0 +1,7 @@
+#gameBox {
+  width: 1000px;
+  height: 800px;
+  position: relative;
+  background: green;
+  left: 20%;
+}
