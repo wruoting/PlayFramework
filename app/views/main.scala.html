@@ -7,13 +7,13 @@
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/CardBack.jpg")">
+        <script type="text/javascript" src = "@routes.HomeController.javascriptRoutes"></script>
         <a id="topButtons" href="@routes.Assets.versioned("images/CardBack.jpg")"> Contact </a>
         <a id="topButtons" href="@routes.HomeController.projects"> Projects </a>
         <a id="topButtons" href="@routes.Assets.versioned("images/CardBack.jpg")"> About </a>
         <a id="topButtons" href="@routes.HomeController.index"> Home </a>
     </head>
     <body>
-          @Application(implicit req: play.api.mvc.RequestHeader)
           @content
     </body>
 </html>

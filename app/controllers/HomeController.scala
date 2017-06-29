@@ -32,7 +32,7 @@ class HomeController @Inject() extends Controller {
   def javascriptRoutes = Action { implicit request =>
     Ok(
         JavaScriptReverseRouter("jsRoutes")(
-            routes.javascript.gameEngine
+            routes.javascript.javascriptRoutes
         )
     ).as("text/javascript")
 }
