@@ -5,7 +5,6 @@ import play.api._
 import play.api.mvc._
 import play.libs._
 import play.api.routing._
-
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
@@ -28,14 +27,11 @@ class HomeController @Inject() extends Controller {
     Ok(views.html.projects())
   }
 
-  //For routing javascript queries to back end
   def javascriptRoutes = Action { implicit request =>
     Ok(
-        JavaScriptReverseRouter("jsRoutes")(
-            routes.javascript.gameEngine
-        )
+        JavaScriptReverseRouter("jsRoutes")
     ).as("text/javascript")
-}
+  }
 
 
 }
