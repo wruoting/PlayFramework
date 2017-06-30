@@ -27,18 +27,13 @@ class HomeController @Inject() extends Controller {
     Ok(views.html.projects())
   }
 
-  //For routing javascript queries to back end
-  def javascriptRoutes = Action { implicit request =>
-    Ok(
-<<<<<<< HEAD
-        JavaScriptReverseRouter("jsRoutes")(
-            routes.javascript.javascriptRoutes
-        )
-=======
-        JavaScriptReverseRouter("jsRoutes")
->>>>>>> abd7d5a1b023fba147f5fd1e8c18fb124dfb2557
-    ).as("text/javascript")
-  }
+  // //For routing javascript queries to back end
+  // def javascriptRoutes = Action { implicit request =>
+  //   import routes.javascript._
+  //   Ok(
+  //       JavaScriptReverseRouter("jsRoutes")     (routes.javascript.gameEngine).as("text/javascript")
+  //     )
+  // }
 
 
 }

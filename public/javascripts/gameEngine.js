@@ -7,16 +7,14 @@ function startGame() {
   var canvas = document.getElementById("gameBox");
   var ctx = canvas.getContext("2d");
   var imageTemplate = new Image();
-  imageTemplate.src = "2_of_clubs.png";
+    imageTemplate.src = "assets/images/2_of_clubs.png";
 
   imageTemplate.onload = function() {
-    ctx.drawImage(imageTemplate,50,50);
+    ctx.drawImage(imageTemplate,1,1);
   }
 
-  var image = document.createElement("img");
+
   //image.style.backgroundImage = "url(/assets/images/2_of_clubs.png)";
-  image.source = 'url(/assets/images/2_of_clubs.png)';
-  document.body.appendChild(image);
   // document.getElementById("DIV").appendChild(source);
   //
   //

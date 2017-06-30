@@ -10,13 +10,5 @@ GET     /count                      controllers.CountController.count
 GET     /message                    controllers.AsyncController.message
 GET     /shengJiGame                controllers.HomeController.projects
 
-# Javascript routes
-GET     /javascriptRoutes          controllers.HomeController.javascriptRoutes
-
-<<<<<<< HEAD
-# Javascript Routes
-GET     /javascriptRoutes           controllers.HomeController.javascriptRoutes
-=======
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file              controllers.Assets.versioned(path="/public", file: Asset)
->>>>>>> abd7d5a1b023fba147f5fd1e8c18fb124dfb2557
