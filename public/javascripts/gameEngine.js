@@ -1,7 +1,7 @@
 /*
   Game Graphics Engine
 */
-
+//Declare all images used
 
 function startGame() {
   var canvas = document.getElementById("gameBox");
@@ -10,16 +10,9 @@ function startGame() {
     imageTemplate.src = "assets/images/2_of_clubs.png";
 
   imageTemplate.onload = function() {
-    ctx.drawImage(imageTemplate,1,1);
+    ctx.drawImage(imageTemplate,50,50,50%,50%);
   }
 
-
-  //image.style.backgroundImage = "url(/assets/images/2_of_clubs.png)";
-  // document.getElementById("DIV").appendChild(source);
-  //
-  //
-
-  //var gameCards = new card(30,30,imageLoad,10,120,"image");
 }
 
 
