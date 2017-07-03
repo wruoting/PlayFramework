@@ -12,28 +12,32 @@ import play.api.routing._
 @Singleton
 class HomeController @Inject() extends Controller {
 
-  /**
-   * Create an Action to render an HTML page with a welcome message.
-   * The configuration in the `routes` file means that this method
-   * will be called when the application receives a `GET` request with
-   * a path of `/`.
-   */
   def index = Action {
     Ok(views.html.index("Your new application is ready...")) //calling index method in views
   }
 
-
+  def javascriptRoutes() = Action { implicit request =>
+    Ok (
+        JavaScriptReverseRouter("jsRoutes")(
+          routes.javascript.HomeController.getItem,
+          routes.javascript.HomeController.newItem,
+          routes.javascript.HomeController.updateItem
+        )
+      ).as("text/javascript")
+  }
   def projects = Action {
     Ok(views.html.projects())
   }
+  def updateItem(id: String) = Action {
+    Ok(views.html.projects())
+  }
 
-  // //For routing javascript queries to back end
-  // def javascriptRoutes = Action { implicit request =>
-  //   import routes.javascript._
-  //   Ok(
-  //       JavaScriptReverseRouter("jsRoutes")     (routes.javascript.gameEngine).as("text/javascript")
-  //     )
-  // }
+  def getItem(id: String) = Action {
+    Ok(views.html.projects())
+  }
 
+  def newItem = Action {
+    Ok(views.html.projects())
+  }
 
 }

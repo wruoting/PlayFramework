@@ -10,5 +10,12 @@ GET     /count                      controllers.CountController.count
 GET     /message                    controllers.AsyncController.message
 GET     /shengJiGame                controllers.HomeController.projects
 
+#Post and Put requests
+GET     /javascriptRoutes          controllers.HomeController.javascriptRoutes
+GET    /shengJiGame/:id            controllers.HomeController.getItem(id: String)
+POST   /shengJiGame/new            controllers.HomeController.newItem
+PUT    /shengJiGame/:id            controllers.HomeController.updateItem(id: String)
+#put use put to overwrite an existing resource
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file              controllers.Assets.versioned(path="/public", file: Asset)
