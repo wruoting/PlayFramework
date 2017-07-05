@@ -33,7 +33,7 @@ class HomeController @Inject() extends Controller {
   }
 
   def getItem(id: String) = Action {
-    Ok(views.html.projects())
+    Ok(views.html.index("get item works"))
   }
 
   def newItem = Action {

@@ -120,7 +120,7 @@ var ctx = canvas.getContext("2d");
 
 
 function startGame() {
-
+  jsRoutes.controllers.HomeController.getItem("test")
 }
 
 function validClick() {
