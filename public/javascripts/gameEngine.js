@@ -120,15 +120,35 @@ var ctx = canvas.getContext("2d");
 
 
 function startGame() {
-  jsRoutes.controllers.HomeController.getItem("test")
+
+}
+var successFn = function(data) {
+if(data == "true"){
+      console.log("true")
+  }
+  else{
+    console.log("false")
+  }
+  console.debug("Success of Ajax Call");
+  console.debug(data);
+  };
+  var errorFn = function(err) {
+  console.debug("Error of ajax Call");
+  console.debug(err);
+}
+
+var ajax1 = {
+  success: successFn,
+  error: errorFn
 }
 
 function validClick() {
-
+  var confirmation = false;
+  jsRoutes.controllers.HomeController.getItem(confirmation).ajax(ajax1);
 
 }
 function onClick() {
 
 }
 
-startGame();
+validClick()

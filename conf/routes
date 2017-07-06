@@ -9,12 +9,13 @@ GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
 GET     /shengJiGame                controllers.HomeController.projects
+GET     /test                       controllers.HomeController.test
 
 #Post and Put requests
-GET     /javascriptRoutes          controllers.HomeController.javascriptRoutes
-GET    /shengJiGame/:id            controllers.HomeController.getItem(id: String)
+GET    /javascriptRoutes           controllers.HomeController.javascriptRoutes
+GET    /shengJiGame/:id            controllers.HomeController.getItem(id: Boolean)
 POST   /shengJiGame/new            controllers.HomeController.newItem
-PUT    /shengJiGame/:id            controllers.HomeController.updateItem(id: String)
+PUT    /shengJiGame/:id            controllers.HomeController.updateItem(id: Boolean)
 #put use put to overwrite an existing resource
 
 # Map static resources from the /public folder to the /assets URL path

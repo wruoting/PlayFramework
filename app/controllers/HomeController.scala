@@ -16,6 +16,9 @@ class HomeController @Inject() extends Controller {
     Ok(views.html.index("Your new application is ready...")) //calling index method in views
   }
 
+  def test = Action {
+    Ok(views.html.home())
+  }
   def javascriptRoutes() = Action { implicit request =>
     Ok (
         JavaScriptReverseRouter("jsRoutes")(
@@ -28,12 +31,13 @@ class HomeController @Inject() extends Controller {
   def projects = Action {
     Ok(views.html.projects())
   }
-  def updateItem(id: String) = Action {
-    Ok(views.html.projects())
+  def updateItem(id: Boolean) = Action {
+    Ok(views.html.index("test"))
   }
 
-  def getItem(id: String) = Action {
-    Ok(views.html.index("get item works"))
+  def getItem(id: Boolean) = Action {
+    if(id == true) Ok("true")
+    else Ok("false")
   }
 
   def newItem = Action {
