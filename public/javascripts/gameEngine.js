@@ -116,6 +116,16 @@ global.BLACK_JOKER.src = "../assets/images/black_joker.png";
 var canvas = document.getElementById("gameBox");
 var ctx = canvas.getContext("2d");
 
+var newHeight = global.BLACK_JOKER.height * 0.1;
+var newWidth = global.BLACK_JOKER.width * 0.1;
+
+global.BLACK_JOKER.onload = function () {
+  var raster = new Raster(global.BLACK_JOKER);
+  raster.scale(0.1);
+  ctx.drawImage(global.BLACK_JOKER, 0, 0)
+}
+
+
 
 
 
@@ -143,7 +153,7 @@ var ajax1 = {
 }
 
 function validClick() {
-  var confirmation = false;
+  var confirmation = true;
   jsRoutes.controllers.HomeController.getItem(confirmation).ajax(ajax1);
 
 }
