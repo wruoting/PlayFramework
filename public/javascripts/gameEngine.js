@@ -118,7 +118,7 @@ images.QUEEN_OF_SPADES.src = "../assets/images/queen_of_spades2.png";
 images.RED_JOKER.src = "../assets/images/red_joker.png";
 images.BLACK_JOKER.src = "../assets/images/black_joker.png";
 
-
+window.onload = function() {
 //Raster for all images
 rendered_images.TEN_OF_CLUBS_RASTER= new paper.Raster(images.TEN_OF_CLUBS);
 rendered_images.TEN_OF_DIAMONDS_RASTER= new paper.Raster(images.TEN_OF_DIAMONDS);
@@ -176,7 +176,7 @@ rendered_images.RED_JOKER_RASTER= new paper.Raster(images.RED_JOKER);
 rendered_images.BLACK_JOKER_RASTER= new paper.Raster(images.BLACK_JOKER);
 //paper is the variable that is added to the images scope, and references the active PaperScope project and all Paper.js classes can be accessed
 
-window.onload = function() {
+
 //Scale, set all images to not show unless necessary
   Object.keys(rendered_images).forEach(function (key) {
     rendered_images[key].scale(0.2);
@@ -184,12 +184,22 @@ window.onload = function() {
   })
 
 
-  var pointA = new paper.Point(200,200);
-  rendered_images.TEN_OF_CLUBS_RASTER.position = pointA;
-  pointA = new paper.Point(300,200);
-  rendered_images.TEN_OF_CLUBS_RASTER.position = pointA;
-  rendered_images.TEN_OF_CLUBS_RASTER.rasterize(1000);
+  var point1 = new paper.Point(250,800);
+  var point2 = new paper.Point(270,800);
+  var point3 = new paper.Point(290,800);
+  var point4 = new paper.Point(310,800);
+  var point5 = new paper.Point(330,800);
+  var point6 = new paper.Point(350,800);
+  var point7 = new paper.Point(370,800);
+  var point8 = new paper.Point(390,800);
+  var point9 = new paper.Point(410,800);
+  var point10 = new paper.Point(430,800);
+  var point11 = new paper.Point(450,800);
+  rendered_images.TEN_OF_CLUBS_RASTER.position = point1;
+  rendered_images.TEN_OF_DIAMONDS_RASTER.position = point2;
+
   rendered_images.TEN_OF_CLUBS_RASTER.visible= true;
+  rendered_images.TEN_OF_DIAMONDS_RASTER.visible= true;
 
 
 }
@@ -199,6 +209,7 @@ window.onload = function() {
 
 
 function startGame() {
+
 
 }
 var successFn = function(data) {

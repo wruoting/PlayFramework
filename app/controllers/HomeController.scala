@@ -15,10 +15,6 @@ class HomeController @Inject() extends Controller {
   def index = Action {
     Ok(views.html.index("Your new application is ready...")) //calling index method in views
   }
-
-  def test = Action {
-    Ok(views.html.home())
-  }
   def javascriptRoutes() = Action { implicit request =>
     Ok (
         JavaScriptReverseRouter("jsRoutes")(
@@ -38,6 +34,10 @@ class HomeController @Inject() extends Controller {
   def getItem(id: Boolean) = Action {
     if(id == true) Ok("true")
     else Ok("false")
+  }
+
+  def startGame() = Action {
+    val cardGameStart = new shengJiCardGame()
   }
 
   def newItem = Action {
