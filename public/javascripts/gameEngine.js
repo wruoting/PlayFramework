@@ -209,8 +209,10 @@ rendered_images.BLACK_JOKER_RASTER= new paper.Raster(images.BLACK_JOKER);
 
 
 function startGame() {
-
-
+  var dealButton = document.getElementById("dealButton");
+  dealButton.style.left = "200px";
+  dealButton.style.bottom = "200px";
+  dealButton.onclick = jsRoutes.controllers.HomeController.startGame(2).ajax(ajax1);
 }
 var successFn = function(data) {
 if(data == "true"){
@@ -232,6 +234,11 @@ var ajax1 = {
   error: errorFn
 }
 
+var ajax2 = {
+  success: console.log("good"),
+  error: console.log("bad")
+}
+
 function validClick() {
   var confirmation = true;
   jsRoutes.controllers.HomeController.getItem(confirmation).ajax(ajax1);
@@ -241,4 +248,8 @@ function onClick() {
 
 }
 
-validClick()
+// function main() {
+//   //Start dealing
+//   var startButton = document.createElement("DealButton");
+//
+// }
