@@ -12,3 +12,7 @@ libraryDependencies += ws
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % Test
 // https://mvnrepository.com/artifact/org.webjars/bootstrap
 libraryDependencies += "org.webjars" % "bootstrap" % "3.2.0"
+//add evolutions for relational database
+libraryDependencies ++= Seq(evolutions, jdbc)
+//h2 database
+libraryDependencies += "com.h2database" % "h2" % "1.4.192"

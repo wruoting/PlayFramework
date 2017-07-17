@@ -120,6 +120,8 @@ images.BLACK_JOKER.src = "../assets/images/black_joker.png";
 
 window.onload = function() {
 //Raster for all images
+//Type: Item, Object
+//Package: Paper.js
 rendered_images.TEN_OF_CLUBS_RASTER= new paper.Raster(images.TEN_OF_CLUBS);
 rendered_images.TEN_OF_DIAMONDS_RASTER= new paper.Raster(images.TEN_OF_DIAMONDS);
 rendered_images.TEN_OF_HEARTS_RASTER= new paper.Raster(images.TEN_OF_HEARTS);
@@ -176,44 +178,78 @@ rendered_images.RED_JOKER_RASTER= new paper.Raster(images.RED_JOKER);
 rendered_images.BLACK_JOKER_RASTER= new paper.Raster(images.BLACK_JOKER);
 //paper is the variable that is added to the images scope, and references the active PaperScope project and all Paper.js classes can be accessed
 
+//Define Suit Property
+for(key in rendered_images) {
+  var diamonds = /DIAMONDS/.test(key);
+  var spades = /SPADES/.test(key);
+  var clubs = /CLUBS/.test(key);
+  var hearts = /HEARTS/.test(key);
+  var joker = /JOKER/.test(key);
+  if(diamonds) {
+    rendered_images[key].Suit = "Diamond";
+  }
+  if(spades) {
+    rendered_images[key].Suit = "Spade";
+  }
+  if(clubs) {
+    rendered_images[key].Suit = "Club";
+  }
+  if(hearts) {
+    rendered_images[key].Suit = "Heart";
+  }
+  if(joker) {
+    rendered_images[key].Suit = "Joker";
+  }
+}
 
 //Scale, set all images to not show unless necessary
-  Object.keys(rendered_images).forEach(function (key) {
-    rendered_images[key].scale(0.2);
-    rendered_images[key].visible = false;
-  })
+Object.keys(rendered_images).forEach(function (key) {
+  rendered_images[key].scale(0.2);
+  rendered_images[key].visible = false;
+})
 
+//Creates the spaces for cards
+//Parameters: n/a
+//Return: cardPosition: Array
+var cardPosition =  function() {
+  var cardPosition = [];
+  for(var i = 0;i<13;i++) {
+    var displace = 250 + i*20;
+    cardPosition[i] = new paper.Point(displace,800);
+  }
+  return cardPosition;
+}(); //this is a self invoking function since it has () at the end. Only runs once since it returns an array once.
 
-  var point1 = new paper.Point(250,800);
-  var point2 = new paper.Point(270,800);
-  var point3 = new paper.Point(290,800);
-  var point4 = new paper.Point(310,800);
-  var point5 = new paper.Point(330,800);
-  var point6 = new paper.Point(350,800);
-  var point7 = new paper.Point(370,800);
-  var point8 = new paper.Point(390,800);
-  var point9 = new paper.Point(410,800);
-  var point10 = new paper.Point(430,800);
-  var point11 = new paper.Point(450,800);
-  rendered_images.TEN_OF_CLUBS_RASTER.position = point1;
-  rendered_images.TEN_OF_DIAMONDS_RASTER.position = point2;
+  var pointCenter = new paper.Point(550,500);
+
+  rendered_images.TEN_OF_CLUBS_RASTER.position = cardPosition[0];
+  rendered_images.TEN_OF_DIAMONDS_RASTER.position = cardPosition[1];
 
   rendered_images.TEN_OF_CLUBS_RASTER.visible= true;
   rendered_images.TEN_OF_DIAMONDS_RASTER.visible= true;
+  var A = rendered_images.TEN_OF_CLUBS_RASTER;
+  var validClick = true;
+  //can wrap to make more generic
 
+  chooseCard(A,validClick,pointCenter);
+  var A = rendered_images.TEN_OF_DIAMONDS_RASTER;
+  chooseCard(A,validClick,pointCenter);
+}
 
+//Parameters: paper.Raster, Boolean, paper.Point
+//Return: null
+function chooseCard(renderedImage,validClick,pointCenter) {
+  if(validClick) {
+    renderedImage.onClick = function(event) {
+        this.position = pointCenter;
+        setTimeout(function() {renderedImage.visible= false},1000);
+    }
+  }
 }
 
 
 
 
-
-function startGame() {
-  var dealButton = document.getElementById("dealButton");
-  dealButton.style.left = "200px";
-  dealButton.style.bottom = "200px";
-  dealButton.onclick = jsRoutes.controllers.HomeController.startGame(2).ajax(ajax1);
-}
 var successFn = function(data) {
 if(data == "true"){
       console.log("true")
@@ -241,10 +277,7 @@ var ajax2 = {
 
 function validClick() {
   var confirmation = true;
-  jsRoutes.controllers.HomeController.getItem(confirmation).ajax(ajax1);
-
-}
-function onClick() {
+//  jsRoutes.controllers.HomeController.getItem(confirmation).ajax(ajax1);
 
 }
 
