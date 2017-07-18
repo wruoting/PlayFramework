@@ -12,6 +12,8 @@ import play.api.routing._
 @Singleton
 class HomeController @Inject() extends Controller {
 
+
+
   def index = Action {
     Ok(views.html.index("Your new application is ready...")) //calling index method in views
   }
