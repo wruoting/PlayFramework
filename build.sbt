@@ -16,8 +16,3 @@ libraryDependencies += "org.webjars" % "bootstrap" % "3.2.0"
 libraryDependencies ++= Seq(evolutions, jdbc)
 //h2 database for accessing a local db
 libraryDependencies += "com.h2database" % "h2" % "1.4.192"
-//slick dependency for database querying
-libraryDependencies ++= Seq(
-  "com.typesafe.play" %% "play-slick" % "2.0.0"
-  "com.typesafe.play" %% "play-slick-evolutions" % "2.0.0"
-)
