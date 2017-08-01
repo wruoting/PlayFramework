@@ -5,8 +5,6 @@ import play.api._
 import play.api.mvc._
 import play.libs._
 import play.api.routing._
-import scala.collection.mutable.MutableList
-import models.Query
 import models.ShengJiLogic
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -14,27 +12,6 @@ import models.ShengJiLogic
  */
 @Singleton
 class HomeController @Inject() extends Controller {
-
-  // def test = Action {
-  //   import play.api.db._
-  //   val list = MutableList[Query]()
-  //   DB.withConnection { conn =>
-  //     val stm = conn.createStatement()
-  //     val res = stm.executeQuery("""
-  //     select
-  //        character_set_name, description
-  //     from
-  //        character_sets
-  //     order by
-  //         character_set_name
-  //     limit 10""")
-  //     while (res.next()) {
-  //       list.+=(Query(res.getString(1), res.getString(2)))
-  //     }
-  //   }
-  //
-  //   Ok(views.html.index(list))
-  // }
 
   def index = Action {
     Ok(views.html.index("Your new application is ready...")) //calling index method in views

@@ -1,7 +1,7 @@
 #Users schema
 # --- !Ups
 
-CREATE TABLE CardSet (
+CREATE TABLE Test (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   Card1 int NOT NULL,
   Card2 int NOT NULL,
@@ -18,4 +18,4 @@ CREATE TABLE CardSet (
   PRIMARY KEY (id)
 );
 # --- !Downs
-DROP TABLE Test;
+# DROP TABLE Test;
