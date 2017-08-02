@@ -1,4 +1,4 @@
-package models;
+package models
 import play.api.Logger
 class ShengJiLogic {
   /***

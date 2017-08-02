@@ -243,12 +243,22 @@ function chooseCard(renderedImage,validClick,pointCenter) {
     renderedImage.onClick = function(event) {
         this.position = pointCenter;
         setTimeout(function() {renderedImage.visible= false},1000);
+        $.ajax({
+          type: "POST",
+          url: "@{jsRoutes.controllers.HomeController.newItem}",
+          data: {
+
+          }
+        });
     }
   }
 }
 
 
-
+var ajax1 = {
+  success: successFn,
+  error: errorFn
+}
 
 var successFn = function(data) {
 if(data == "true"){
@@ -265,10 +275,7 @@ if(data == "true"){
   console.debug(err);
 }
 
-var ajax1 = {
-  success: successFn,
-  error: errorFn
-}
+
 
 var ajax2 = {
   success: console.log("good"),
@@ -277,10 +284,9 @@ var ajax2 = {
 
 function validClick() {
   var confirmation = true;
-//  jsRoutes.controllers.HomeController.getItem(confirmation).ajax(ajax1);
+  //jsRoutes.controllers.HomeController.getItem(confirmation).ajax(ajax1);
 
 }
-
 // function main() {
 //   //Start dealing
 //   var startButton = document.createElement("DealButton");

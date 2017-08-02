@@ -11,7 +11,7 @@ GET     /message                    controllers.AsyncController.message
 GET     /shengJiGame                controllers.HomeController.projects
 
 #Scala dependency injection database
-GET    /databaseQuery              controllers.ScalaControllerInject.index
+#GET    /databaseQuery              controllers.ScalaControllerInject.index
 
 #Post and Put requests
 GET    /javascriptRoutes           controllers.HomeController.javascriptRoutes
