@@ -47,10 +47,8 @@ class HomeController @Inject() (db: Database)  extends Controller {
     Ok("true")
   }
 
-  def newItem = Action {
+  def newItem(id: Integer) = Action {
     var outString = ""
-    val GameLogic = new ShengJiLogic
-    var cardList = GameLogic.createCardBase(2)
       val conn = db.getConnection()
       try {
         val stmt = conn.createStatement

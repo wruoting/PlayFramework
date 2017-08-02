@@ -16,7 +16,7 @@ GET     /shengJiGame                controllers.HomeController.projects
 #Post and Put requests
 GET    /javascriptRoutes           controllers.HomeController.javascriptRoutes
 GET    /shengJiGame/:id            controllers.HomeController.getItem(id: Boolean)
-POST   /shengJiGame/new            controllers.HomeController.newItem
+GET    /shengJiGame/:id            controllers.HomeController.newItem(id: Integer)
 PUT    /shengJiGame/:id            controllers.HomeController.updateItem(id: Boolean)
 PUT    /shengJiGame/:numberOfDecks controllers.HomeController.startGame(numberOfDecks: Int)
 

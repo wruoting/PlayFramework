@@ -235,6 +235,10 @@ var cardPosition =  function() {
   var A = rendered_images.TEN_OF_DIAMONDS_RASTER;
   chooseCard(A,validClick,pointCenter);
 }
+var ajax1 = {
+  success: successFn,
+  error: errorFn
+}
 
 //Parameters: paper.Raster, Boolean, paper.Point
 //Return: null
@@ -243,22 +247,13 @@ function chooseCard(renderedImage,validClick,pointCenter) {
     renderedImage.onClick = function(event) {
         this.position = pointCenter;
         setTimeout(function() {renderedImage.visible= false},1000);
-        $.ajax({
-          type: "POST",
-          url: "@{jsRoutes.controllers.HomeController.newItem}",
-          data: {
-
-          }
-        });
-    }
+        jsRoutes.controllers.HomeController.newItem(1).ajax(ajax1);
   }
 }
-
-
-var ajax1 = {
-  success: successFn,
-  error: errorFn
 }
+
+
+
 
 var successFn = function(data) {
 if(data == "true"){
@@ -270,17 +265,12 @@ if(data == "true"){
   console.debug("Success of Ajax Call");
   console.debug(data);
   };
-  var errorFn = function(err) {
+
+var errorFn = function(err) {
   console.debug("Error of ajax Call");
   console.debug(err);
 }
 
-
-
-var ajax2 = {
-  success: console.log("good"),
-  error: console.log("bad")
-}
 
 function validClick() {
   var confirmation = true;
