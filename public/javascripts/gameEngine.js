@@ -247,7 +247,11 @@ function chooseCard(renderedImage,validClick,pointCenter) {
     renderedImage.onClick = function(event) {
         this.position = pointCenter;
         setTimeout(function() {renderedImage.visible= false},1000);
-        jsRoutes.controllers.HomeController.newItem(1).ajax(ajax1);
+
+        $.get(jsRoutes.controllers.HomeController.newItem(2),function(data) {
+          console.log(data);
+        })
+
   }
 }
 }
@@ -257,7 +261,7 @@ function chooseCard(renderedImage,validClick,pointCenter) {
 
 var successFn = function(data) {
 if(data == "true"){
-      console.log("true")
+      console.log(data)
   }
   else{
     console.log("false")

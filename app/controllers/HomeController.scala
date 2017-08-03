@@ -21,7 +21,6 @@ class HomeController @Inject() (db: Database)  extends Controller {
   def javascriptRoutes() = Action { implicit request =>
     Ok (
         JavaScriptReverseRouter("jsRoutes")(
-          routes.javascript.HomeController.getItem,
           routes.javascript.HomeController.newItem,
           routes.javascript.HomeController.updateItem,
           routes.javascript.HomeController.startGame
@@ -38,7 +37,7 @@ class HomeController @Inject() (db: Database)  extends Controller {
 
   def getItem(id: Boolean) = Action {
     if(id == true) Ok("true")
-    else Ok("false")
+    else Ok("helloworld")
   }
 
   def startGame(numberOfDecks: Int) = Action {
@@ -47,19 +46,23 @@ class HomeController @Inject() (db: Database)  extends Controller {
     Ok("true")
   }
 
-  def newItem(id: Integer) = Action {
+  def newItem(number: Int) = Action {
     var outString = ""
       val conn = db.getConnection()
+
       try {
         val stmt = conn.createStatement
         stmt.executeUpdate("INSERT INTO Hands (id) VALUES (1)")
-        stmt.executeUpdate("UPDATE Hands SET Card1 = 1 WHERE id = 1")
-        val rs = stmt.executeQuery("SELECT Card1 FROM Hands WHERE id = 1")
-        var outString = rs.getString("id")
+        stmt.executeUpdate("UPDATE Hands SET Card1 = " + number + " WHERE id = 1")
+        val rs = stmt.executeQuery("SELECT Card1 as C1 FROM Hands")
+        while(rs.next()) {
+          outString += rs.getString("C1")
+       }
     } finally {
       conn.close()
     }
     Ok(outString)
   }
+
 
 }
