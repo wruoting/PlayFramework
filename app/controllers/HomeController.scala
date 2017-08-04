@@ -6,7 +6,7 @@ import play.api.mvc._
 import play.libs._
 import play.api.routing._
 import play.api.db._
-import models.ShengJiLogic
+import models._
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -48,33 +48,14 @@ class HomeController @Inject() (db: Database)  extends Controller {
   }
 
   def newItem(id: Integer) = Action {
-
-      var buildQuery = "INSERT INTO Hands (ID,"
-      for(i <- 1 to 26) {
-        if(i !=26) {
-          buildQuery += "Card"+i+", "
-        }
-        else{
-          buildQuery += "Card"+i
-        }
-      }
-      buildQuery += ") VALUES ("
-      for(j <- 1 to 27) {
-        if(j !=27) {
-          buildQuery += "0,"
-        }
-        else{
-          buildQuery += "0)"
-        }
-      }
-
+    //Build the table
+    val QueryLogic = new QueryLogic
+    val buildQuery = QueryLogic.buildQuery();
       val conn = db.getConnection()
       try {
         val stmt = conn.createStatement
         stmt.executeUpdate(buildQuery)
 
-      // val rs = stmt.executeQuery("SELECT Card1 FROM Hands WHERE id = 1")
-      //   var outString = rs.getString("id")
     } finally {
       conn.close()
     }
