@@ -16,50 +16,83 @@ import models._
 class HomeController @Inject() (db: Database)  extends Controller {
 
   def index = Action {
-    Ok(views.html.index("Your new application is ready...")) //calling index method in views
+    Ok(views.html.index("Home Page")) //calling index method in views
+  }
+  def projects = Action {
+    Ok(views.html.projects())
   }
   def javascriptRoutes() = Action { implicit request =>
     Ok (
         JavaScriptReverseRouter("jsRoutes")(
           routes.javascript.HomeController.getItem,
-          routes.javascript.HomeController.newItem,
+          routes.javascript.HomeController.newGame,
           routes.javascript.HomeController.updateItem,
           routes.javascript.HomeController.startGame
         )
       ).as("text/javascript")
   }
-  def projects = Action {
-    Ok(views.html.projects())
-  }
-  def updateItem(id: Boolean) = Action {
 
-      Ok(views.html.projects())
+  def updateItem(playerID: Int, cardNumber: Int, updateState: Int) = Action {
+      val QueryLogic = new QueryLogic
+      val conn = db.getConnection()
+      try {
+          var stmt = conn.createStatement()
+          val tableState = stmt.executeUpdate(QueryLogic.updateTable(playerID,cardNumber,updateState))
+      }
+      finally {
+        conn.close()
+      }
+      Ok("Updated Item")
   }
 
-  def getItem(id: Boolean) = Action {
-    if(id == true) Ok("true")
-    else Ok("false")
+  def getItem(playerID: Int, cardNumber: Int) = Action {
+    var cardState = ""
+    val QueryLogic = new QueryLogic
+    val conn = db.getConnection()
+    try {
+        var stmt = conn.createStatement()
+        val tableState = stmt.executeQuery(QueryLogic.getTable(playerID,cardNumber))
+        if(tableState.next()) {
+          cardState = tableState.getString("CARD"+cardNumber)
+        }
+    }
+    finally {
+      conn.close()
+    }
+    Ok(cardState)
   }
 
   def startGame(numberOfDecks: Int) = Action {
     val GameLogic = new ShengJiLogic
     var cardList = GameLogic.createCardBase(numberOfDecks)
-    Ok("true")
+
+    Ok("Game Started")
   }
 
-  def newItem(id: Integer) = Action {
+  def newGame(id: Int) = Action {
     //Build the table
+    var numberOfEntries = ""
     val QueryLogic = new QueryLogic
-    val buildQuery = QueryLogic.buildQuery();
+    val UpdateQueryDB_Create_Cards = new Array[String](4)
+    for(i <- 0 to 3) {
+      UpdateQueryDB_Create_Cards(i) = QueryLogic.buildDeck(i+1)
+    }
       val conn = db.getConnection()
       try {
-        val stmt = conn.createStatement
-        stmt.executeUpdate(buildQuery)
-
-    } finally {
-      conn.close()
-    }
-    Ok("created CardBase")
+        val stmt = conn.createStatement()
+        val tableState = stmt.executeQuery(QueryLogic.checkTableState())
+        if(tableState.next()) {
+           numberOfEntries = tableState.getString(1)
+        }
+        if(numberOfEntries.toInt == 0) {
+          for(i <- 0 to 3) {
+            stmt.executeUpdate(UpdateQueryDB_Create_Cards(i))
+          }
+        }
+      } finally {
+        conn.close()
+      }
+    Ok("New Deck Built")
   }
 
 }

@@ -8,7 +8,7 @@ class QueryLogic {
   Return: Array with one value for each card
   Use: Creates an Empty CardBase
   ***/
-  def buildQuery() : String = {
+  def buildDeck(playerNumber: Int) : String = {
     var buildQuery = "INSERT INTO Hands (ID,"
     for(i <- 1 to 26) {
       if(i !=26) {
@@ -24,7 +24,7 @@ class QueryLogic {
         buildQuery += "0,"
       }
       else if (j==1) {
-        buildQuery += "1,"
+        buildQuery += playerNumber+","
       }
       else if (j==27){
         buildQuery += "0)"
@@ -32,5 +32,26 @@ class QueryLogic {
     }
     return buildQuery
   }
+
+  def checkTableState() : String = {
+    var buildQuery = "SELECT COUNT(ID) FROM HANDS"
+      return buildQuery
+  }
+
+  def getTable(playerID: Int, cardNumber: Int) : String = {
+    var buildQuery = "SELECT CARD"+
+                      cardNumber + " FROM HANDS WHERE ID = " +
+                      playerID
+    return buildQuery
+  }
+
+  def updateTable(playerID: Int, cardNumber: Int, updateState: Int) : String = {
+    var buildQuery = "UPDATE HANDS SET CARD"+
+                      cardNumber + " = " +
+                      updateState + " WHERE ID = " +
+                      playerID
+      return buildQuery
+  }
+
 
 }
