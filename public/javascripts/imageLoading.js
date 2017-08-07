@@ -1,4 +1,4 @@
-//Global Images
+
 //set up canvas//canvas
   var canvas = document.getElementById("gameBox");
   var ctx = canvas.getContext("2d");
@@ -177,26 +177,39 @@ rendered_images.RED_JOKER_RASTER= new paper.Raster(images.RED_JOKER);
 rendered_images.BLACK_JOKER_RASTER= new paper.Raster(images.BLACK_JOKER);
 
 
-//Define Suit Property
-for(key in rendered_images) {
-  var diamonds = /DIAMONDS/.test(key);
-  var spades = /SPADES/.test(key);
-  var clubs = /CLUBS/.test(key);
-  var hearts = /HEARTS/.test(key);
-  var joker = /JOKER/.test(key);
-  if(diamonds) {
-    rendered_images[key].Suit = "Diamond";
-  }
-  if(spades) {
-    rendered_images[key].Suit = "Spade";
-  }
-  if(clubs) {
-    rendered_images[key].Suit = "Club";
-  }
-  if(hearts) {
-    rendered_images[key].Suit = "Heart";
-  }
-  if(joker) {
-    rendered_images[key].Suit = "Joker";
+//Scale, set all images to not show unless necessary
+Object.keys(rendered_images).forEach(function (key) {
+  rendered_images[key].scale(0.2);
+  rendered_images[key].visible = false;
+})
+
+//Center of the field
+var PField = new Array(4);
+for(var i = 0; i < 4 ; i++ ) {
+  switch(i) {
+    case 0:
+      PField [i] = new paper.Point(550,500);
+      break;
+    case 1:
+      PField [i] = new paper.Point(500,450);
+      break;
+    case 2:
+      PField [i] = new paper.Point(600,450);
+      break;
+    case 3:
+      PField [i] = new paper.Point(550,400);
+      break;
   }
 }
+
+//Creates the spaces for cards
+//Parameters: n/a
+//Return: cardPosition: Array
+var cardPosition =  function() {
+  var cardPosition = [];
+  for(var i = 0;i<13;i++) {
+    var displace = 250 + i*20;
+    cardPosition[i] = new paper.Point(displace,800);
+  }
+  return cardPosition;
+}(); //this is a self invoking function since it has () at the end. Only runs once since it returns an array once.

@@ -65,7 +65,13 @@ class HomeController @Inject() (db: Database)  extends Controller {
   def startGame(numberOfDecks: Int) = Action {
     val GameLogic = new ShengJiLogic
     var cardList = GameLogic.createCardBase(numberOfDecks)
-
+    var cardDistribute = GameLogic.distributeCards(cardList)
+    GameLogic.showCards(cardDistribute)
+    // for(i <- 0 to 25) {
+    //   for(j<- 0 to 3) {
+    //     cardList(i)(j)
+    //   }
+    // }
     Ok("Game Started")
   }
 

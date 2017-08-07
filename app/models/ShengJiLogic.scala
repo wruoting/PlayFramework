@@ -23,7 +23,7 @@ class ShengJiLogic {
   Return: Array with one value for each card
   This function serves as a way of giving each player a randomly preset hand. Iterating through the array will allow you time to do trump suit shows, etc.
   ***/
-  def distributeCards(cardBase: Array[Array[Int]],trumpCard: Int,trumpSuit: Int): Array[Array[Int]]= {
+  def distributeCards(cardBase: Array[Array[Int]]): Array[Array[Int]]= {
     //Create an array with each person getting a card
     //Shuffle that card base
     val seedNumber = 107
@@ -48,10 +48,6 @@ class ShengJiLogic {
       //Redefine which of the 4 players it should go to
       val realPlayerCount=playerCount%4
       cardBase(suitNumber)(cardNumber) = GlobalMappings.cardState(GlobalMappings.playerCardState(realPlayerCount))
-      //Set as trump card for player if necessary
-      if ((cardNumber==trumpCard || (cardNumber%13)==trumpCard) && cardNumber != 26) {
-        cardBase(suitNumber)(cardNumber) = -GlobalMappings.cardState(GlobalMappings.playerCardState(realPlayerCount))
-      }
     }
       return cardBase
 }
