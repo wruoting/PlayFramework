@@ -35,6 +35,31 @@ window.onload = function() {
   chooseCard(A,validClick,PField[2],cardProperties);
   var A = rendered_images.EIGHT_OF_HEARTS_RASTER;
   chooseCard(A,validClick,PField[3],cardProperties);
+  dealCard(A,PField[3],cardProperties);
+}
+
+function dealCard(renderedImage, PField, cardProperties) {
+  renderedImage.onClick = function(event) {
+      this.position = PField;
+      setTimeout(function() {renderedImage.visible= false},1000);
+      var index = 2;
+        var cardDrawn;
+
+
+        jsRoutes.controllers.HomeController.dealCard(index).ajax({
+        type : 'GET',
+        async: false,
+        success : function(data) {
+          var Suit = data.split(" ")[0];
+          var Card = data.split(" ")[1];
+          var cardDealt = {
+            "Suit" : Suit,
+            "Card" : Card
+          }
+          cardDrawn=cardDealt
+          }
+        });
+      }
 }
 //Parameters: paper.Raster, Boolean, paper.Point
 //Return: null
@@ -43,11 +68,10 @@ function chooseCard(renderedImage,validClick,PField,cardProperties) {
     renderedImage.onClick = function(event) {
         this.position = PField;
         setTimeout(function() {renderedImage.visible= false},1000);
-        //playerID, card number, card state
-        $.get(jsRoutes.controllers.HomeController.updateItem(cardProperties.playerID,cardProperties.cardNumber,cardProperties.cardState),function(data) {
-        })
+
         $.get(jsRoutes.controllers.HomeController.startGame(2),function(data) {
         })
+
       }
   }
 }

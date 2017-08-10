@@ -17,6 +17,7 @@ GET    /shengJiGame/updatedItem:playerID:cardNumber:updateState               co
 GET    /shengJiGame/startGame:numberOfDecks                                   controllers.HomeController.startGame(numberOfDecks: Int)
 GET    /shengJiGame/getItem:playerID:cardNumber                               controllers.HomeController.getItem(playerID: Int, cardNumber: Int)
 GET    /shengJiGame/newGameInstance:number                                    controllers.HomeController.newGame(number: Int)
+GET    /shengJiGame/dealCard:index                                            controllers.HomeController.dealCard(index: Int)
 
 #put use put to overwrite an existing resource
 

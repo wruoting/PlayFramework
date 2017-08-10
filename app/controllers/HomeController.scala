@@ -15,6 +15,7 @@ import models._
 @Singleton
 class HomeController @Inject() (db: Database)  extends Controller {
 
+
   def index = Action {
     Ok(views.html.index("Home Page")) //calling index method in views
   }
@@ -27,11 +28,13 @@ class HomeController @Inject() (db: Database)  extends Controller {
           routes.javascript.HomeController.getItem,
           routes.javascript.HomeController.newGame,
           routes.javascript.HomeController.updateItem,
-          routes.javascript.HomeController.startGame
+          routes.javascript.HomeController.startGame,
+          routes.javascript.HomeController.dealCard
         )
       ).as("text/javascript")
   }
 
+  //from hands db
   def updateItem(playerID: Int, cardNumber: Int, updateState: Int) = Action {
       val QueryLogic = new QueryLogic
       val conn = db.getConnection()
@@ -45,6 +48,7 @@ class HomeController @Inject() (db: Database)  extends Controller {
       Ok("Updated Item")
   }
 
+  //from hands db
   def getItem(playerID: Int, cardNumber: Int) = Action {
     var cardState = ""
     val QueryLogic = new QueryLogic
@@ -62,18 +66,63 @@ class HomeController @Inject() (db: Database)  extends Controller {
     Ok(cardState)
   }
 
+
+
+  //from card list db
+  def dealCard (index: Int) = Action {
+    val QueryLogic = new QueryLogic
+    val conn = db.getConnection()
+    var Suit = ""
+    var Card = ""
+    try {
+      val stmt = conn.createStatement()
+
+      val tableState = stmt.executeQuery(QueryLogic.getCardFromStartingTable(index))
+      if(tableState.next()) {
+        Suit = tableState.getString("Suit")
+        Card = tableState.getString("Card")
+      }
+    }
+    finally {
+      conn.close()
+    }
+    var SuitCard = Suit + " " + Card
+    Ok(SuitCard)
+  }
+
+
   def startGame(numberOfDecks: Int) = Action {
     val GameLogic = new ShengJiLogic
-    var cardList = GameLogic.createCardBase(numberOfDecks)
-    var cardDistribute = GameLogic.distributeCards(cardList)
-    GameLogic.showCards(cardDistribute)
-    // for(i <- 0 to 25) {
-    //   for(j<- 0 to 3) {
-    //     cardList(i)(j)
-    //   }
-    // }
+    val QueryLogic = new QueryLogic
+    val cardList = GameLogic.createCardBase(numberOfDecks)
+    val cardDistribute = GameLogic.distributeCards(cardList)
+    val conn = db.getConnection()
+    var numberOfEntries = ""
+
+    try {
+      val stmt = conn.createStatement()
+      val tableState = stmt.executeQuery(QueryLogic.checkTableState("CardList"))
+      if(tableState.next()) {
+         numberOfEntries = tableState.getString(1)
+      }
+      if(numberOfEntries.toInt == 0) {
+        for (i <- 0 to 107) {
+          stmt.executeUpdate(QueryLogic.createStartingTable(i))
+          stmt.executeUpdate(QueryLogic.updateStartingTable(cardDistribute(i),i))
+        }
+      }
+      else {
+        for (i <- 0 to 107) {
+          stmt.executeUpdate(QueryLogic.updateStartingTable(cardDistribute(i),i))
+        }
+      }
+    }
+    finally {
+      conn.close()
+    }
     Ok("Game Started")
   }
+
 
   def newGame(id: Int) = Action {
     //Build the table
@@ -86,7 +135,7 @@ class HomeController @Inject() (db: Database)  extends Controller {
       val conn = db.getConnection()
       try {
         val stmt = conn.createStatement()
-        val tableState = stmt.executeQuery(QueryLogic.checkTableState())
+        val tableState = stmt.executeQuery(QueryLogic.checkTableState("HANDS"))
         if(tableState.next()) {
            numberOfEntries = tableState.getString(1)
         }

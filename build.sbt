@@ -17,3 +17,5 @@ libraryDependencies += "org.webjars" % "bootstrap" % "3.2.0"
 libraryDependencies ++= Seq(evolutions, jdbc)
 //h2 database for accessing a local db
 libraryDependencies += "com.h2database" % "h2" % "1.4.192"
+
+libraryDependencies += "com.typesafe.play" %% "play-json" % "2.3.4"

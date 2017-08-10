@@ -17,21 +17,23 @@ class ShengJiLogic {
     return cardList
   }
 
+
   /***
   Use: To distribute cards randomly at the beginning of each cycle
   Parameters: Default mapping of Cards, Card Base,Trump suit, SuitHolder
   Return: Array with one value for each card
   This function serves as a way of giving each player a randomly preset hand. Iterating through the array will allow you time to do trump suit shows, etc.
   ***/
-  def distributeCards(cardBase: Array[Array[Int]]): Array[Array[Int]]= {
+  def distributeCards(cardBase: Array[Array[Int]]): Array[(Int,Int)]= {
     //Create an array with each person getting a card
     //Shuffle that card base
     val seedNumber = 107
     val randomCards = scala.util.Random.shuffle((0 to seedNumber).toList)
-
+    var randomCardList = new Array[(Int,Int)](108)
     //Determine which deck, suit, and card each entry of the random card is, and seed with 1-4 to deal to the player
     //Set a player count and give it to a player on each iteration of the random card generator
     var playerCount = -1
+
     for(i <- 0 to randomCards.length-1) {
       playerCount += 1
       var innerCardIndex=randomCards(i)
@@ -44,29 +46,21 @@ class ShengJiLogic {
         //Find out what card it is
         cardNumber=innerCardIndex
 
-      //Now you have the random card index, in which you can give to player 1, 2, 3 or 4
-      //Redefine which of the 4 players it should go to
-      val realPlayerCount=playerCount%4
-      cardBase(suitNumber)(cardNumber) = GlobalMappings.cardState(GlobalMappings.playerCardState(realPlayerCount))
+      randomCardList(i) = (suitNumber,cardNumber)
     }
-      return cardBase
+      return randomCardList
 }
 
 
 
 
-  def showCards(cardBase: Array[Array[Int]]) {
-    for(i <- 0 to 3){
-      for(j <- 0 to 26) {
-          if(j==26){
-            println(cardBase(i)(j)+" ")
-          }
-          else {
-            print(cardBase(i)(j)+" ")
-          }
-        }
-      }
+  def showCards(cardBase: Array[(Int,Int)]) {
+
+    for(i <- 0 to 107) {
+      print(cardBase(i)._1+" "+cardBase(i)._2)
       println()
+    }
+
   }
 
 }

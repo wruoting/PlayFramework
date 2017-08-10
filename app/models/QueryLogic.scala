@@ -1,4 +1,3 @@
-
 package models
 import play.api.Logger
 
@@ -33,8 +32,8 @@ class QueryLogic {
     return buildQuery
   }
 
-  def checkTableState() : String = {
-    var buildQuery = "SELECT COUNT(ID) FROM HANDS"
+  def checkTableState(table: String) : String = {
+    var buildQuery = "SELECT COUNT(*) FROM " + table
       return buildQuery
   }
 
@@ -53,5 +52,25 @@ class QueryLogic {
       return buildQuery
   }
 
+  def updateStartingTable(cardDistribute: (Int,Int), count: Int) : String = {
+    var realCount = count + 1
+    var buildQuery = "UPDATE CardList SET" +
+                      " SUIT = " + cardDistribute._1 +
+                      ", CARD = " + cardDistribute._2 +
+                      "WHERE ID = " + realCount
+    return buildQuery
+  }
+
+  def createStartingTable(count: Int) : String = {
+    var realCount = count + 1
+    var buildQuery = "INSERT INTO CardList (ID, SUIT, CARD) VALUES ("+
+                      realCount + ", 0 , 0 );"
+    return buildQuery
+  }
+
+  def getCardFromStartingTable(index: Int): String = {
+    var buildQuery = "SELECT * FROM CardList WHERE ID = " + index
+    return buildQuery
+  }
 
 }
