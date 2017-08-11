@@ -374,33 +374,92 @@ var VersionKey = {
   One : {},
   Two : {}
 }
-Object.keys(VersionKey).forEach(function (key) {
-  VersionKey[key] = DeckBuilding;
-});
-
-Object.keys(CardKeys).forEach(function (key) {
-  CardKeys[key] = ImageKey;
-});
-
+//spread syntax allows an iterable to be expanded where object literals are expanded. basically allows you to not just reference when Object[key]= Object B.
 Object.keys(JokerKeys).forEach(function (key) {
-  JokerKeys[key] = ImageKey;
+  JokerKeys[key] =  Object.assign({},ImageKey);
 });
-
-
+Object.keys(CardKeys).forEach(function (key) {
+  CardKeys[key] = Object.assign({},ImageKey);
+});
 
 Object.keys(DeckBuilding).forEach(function (key) {
   if(key != "Jokers") {
-      DeckBuilding[key] = CardKeys;
+      DeckBuilding[key] =  Object.assign({},CardKeys);
   }
   else {
-      DeckBuilding[key] = JokerKeys;
+      DeckBuilding[key] =  Object.assign({},JokerKeys);
   }
 });
-console.log(VersionKey)
-// DeckBuilding.Clubs.Two.One.Rastered_Image = new paper.Raster(images.QUEEN_OF_DIAMONDS_2);
-// DeckBuilding.Clubs.Two.Two.Rastered_Image = new paper.Raster(images.BLACK_JOKER_2);
 
+Object.keys(VersionKey).forEach(function (key) {
+  VersionKey[key] = Object.assign({},DeckBuilding);
+});
 
+//need to figure out naming for image source and raster source
+Object.keys(VersionKey).forEach(function (DeckNumber) {
+  //One and Two
+    Object.keys(VersionKey[DeckNumber]).forEach(function (SuitNumber) {
+      var suit = VersionKey[DeckNumber][SuitNumber]
+      //Suits and Jokers
+      Object.keys(VersionKey[DeckNumber][SuitNumber]).forEach(function (CardNumber) {
+        var card = VersionKey[DeckNumber][SuitNumber][CardNumber]
+          // if(VersionKey[DeckNumber][SuitNumber][CardNumber] != "Jokers") {
+          //   Object.keys(VersionKey[DeckNumber][SuitNumber][CardNumber]).forEach(function (ImageNumber) {
+          //       VersionKey[DeckNumber][SuitNumber][CardNumber][ImageNumber]
+          //   });
+          // }
+          // else {
+            Object.keys(VersionKey[DeckNumber][SuitNumber][CardNumber]).forEach(function (ImageNumber) {
+                  //VersionKey[DeckNumber][SuitNumber][CardNumber][ImageNumber] = imagePathing(CardNumber,SuitNumber);
+            });
+          //}
+      });
+    });
+});
+
+imagePathing("Two","Hearts")
+function imagePathing(CardNumber,SuitNumber) {
+  console.log(mapping_numbers.CardNumber)
+  // if(SuitNumber != "Jokers") {
+  //   var src ="../assets/images/"+mapping_numbers[CardNumber]+"_of_"+mapping_suits[SuitNumber]+".png"
+  // }
+  // else {
+  //   var src ="../assets/images/"+mapping_numbers[CardNumber]+"_"+mapping_suits[SuitNumber]+".png"
+  // }
+
+  var mapping_numbers = {
+    Two : "2",
+    Three : "3",
+    Four : "4",
+    Five : "5",
+    Six : "6",
+    Seven : "7",
+    Eight : "8",
+    Nine : "9",
+    Jack : "jack",
+    Queen : "queen",
+    King : "king",
+    Ace : "ace",
+    Red : "red",
+    Black: "black"
+  }
+  var mapping_suits = {
+    Clubs : "clubs",
+    Diamonds : "diamonds",
+    Spades : "spades",
+    Hearts : "hearts",
+    Jokers : "joker"
+  }
+  var mapping_color = {
+    Clubs : "clubs",
+    Diamonds : "diamonds",
+    Spades : "spades",
+    Hearts : "hearts",
+    Jokers : "joker"
+  }
+  console.log(src);
+  return src;
+}
 
 
 
