@@ -7,6 +7,7 @@
 //Declare all images used
 var images = {};
 var rendered_images = {};
+
 images.TEN_OF_CLUBS = new Image();
 images.TEN_OF_DIAMONDS = new Image();
 images.TEN_OF_HEARTS = new Image();
@@ -61,6 +62,61 @@ images.QUEEN_OF_HEARTS = new Image();
 images.QUEEN_OF_SPADES = new Image();
 images.RED_JOKER = new Image();
 images.BLACK_JOKER = new Image();
+
+images.TEN_OF_CLUBS_2 = new Image();
+images.TEN_OF_DIAMONDS_2 = new Image();
+images.TEN_OF_HEARTS_2 = new Image();
+images.TEN_OF_SPADES_2 = new Image();
+images.TWO_OF_CLUBS_2 = new Image();
+images.TWO_OF_DIAMONDS_2 = new Image();
+images.TWO_OF_HEARTS_2 = new Image();
+images.TWO_OF_SPADES_2 = new Image();
+images.THREE_OF_CLUBS_2 = new Image();
+images.THREE_OF_DIAMONDS_2 = new Image();
+images.THREE_OF_HEARTS_2 = new Image();
+images.THREE_OF_SPADES_2 = new Image();
+images.FOUR_OF_CLUBS_2 = new Image();
+images.FOUR_OF_DIAMONDS_2 = new Image();
+images.FOUR_OF_HEARTS_2 = new Image();
+images.FOUR_OF_SPADES_2 = new Image();
+images.FIVE_OF_CLUBS_2 = new Image();
+images.FIVE_OF_DIAMONDS_2 = new Image();
+images.FIVE_OF_HEARTS_2 = new Image();
+images.FIVE_OF_SPADES_2 = new Image();
+images.SIX_OF_CLUBS_2 = new Image();
+images.SIX_OF_DIAMONDS_2 = new Image();
+images.SIX_OF_HEARTS_2 = new Image();
+images.SIX_OF_SPADES_2 = new Image();
+images.SEVEN_OF_CLUBS_2 = new Image();
+images.SEVEN_OF_DIAMONDS_2 = new Image();
+images.SEVEN_OF_HEARTS_2 = new Image();
+images.SEVEN_OF_SPADES_2 = new Image();
+images.EIGHT_OF_CLUBS_2 = new Image();
+images.EIGHT_OF_DIAMONDS_2 = new Image();
+images.EIGHT_OF_HEARTS_2 = new Image();
+images.EIGHT_OF_SPADES_2 = new Image();
+images.NINE_OF_CLUBS_2 = new Image();
+images.NINE_OF_DIAMONDS_2 = new Image();
+images.NINE_OF_HEARTS_2 = new Image();
+images.NINE_OF_SPADES_2 = new Image();
+images.ACE_OF_CLUBS_2 = new Image();
+images.ACE_OF_DIAMONDS_2 = new Image();
+images.ACE_OF_HEARTS_2 = new Image();
+images.ACE_OF_SPADES_2 = new Image();
+images.JACK_OF_CLUBS_2 = new Image();
+images.JACK_OF_DIAMONDS_2 = new Image();
+images.JACK_OF_HEARTS_2 = new Image();
+images.JACK_OF_SPADES_2 = new Image();
+images.KING_OF_CLUBS_2 = new Image();
+images.KING_OF_DIAMONDS_2 = new Image();
+images.KING_OF_HEARTS_2 = new Image();
+images.KING_OF_SPADES_2 = new Image();
+images.QUEEN_OF_CLUBS_2 = new Image();
+images.QUEEN_OF_DIAMONDS_2 = new Image();
+images.QUEEN_OF_HEARTS_2 = new Image();
+images.QUEEN_OF_SPADES_2 = new Image();
+images.RED_JOKER_2 = new Image();
+images.BLACK_JOKER_2 = new Image();
 //Paths
 images.TEN_OF_CLUBS.src = "../assets/images/10_of_clubs.png";
 images.TEN_OF_DIAMONDS.src = "../assets/images/10_of_diamonds.png";
@@ -116,6 +172,61 @@ images.QUEEN_OF_HEARTS.src = "../assets/images/queen_of_hearts2.png";
 images.QUEEN_OF_SPADES.src = "../assets/images/queen_of_spades2.png";
 images.RED_JOKER.src = "../assets/images/red_joker.png";
 images.BLACK_JOKER.src = "../assets/images/black_joker.png";
+
+images.TEN_OF_CLUBS_2.src = "../assets/images/10_of_clubs.png";
+images.TEN_OF_DIAMONDS_2.src = "../assets/images/10_of_diamonds.png";
+images.TEN_OF_HEARTS_2.src = "../assets/images/10_of_hearts.png";
+images.TEN_OF_SPADES_2.src = "../assets/images/10_of_spades.png";
+images.TWO_OF_CLUBS_2.src = "../assets/images/2_of_clubs.png";
+images.TWO_OF_DIAMONDS_2.src = "../assets/images/2_of_diamonds.png";
+images.TWO_OF_HEARTS_2.src = "../assets/images/2_of_hearts.png";
+images.TWO_OF_SPADES_2.src = "../assets/images/2_of_spades.png";
+images.THREE_OF_CLUBS_2.src = "../assets/images/3_of_clubs.png";
+images.THREE_OF_DIAMONDS_2.src = "../assets/images/3_of_diamonds.png";
+images.THREE_OF_HEARTS_2.src = "../assets/images/3_of_hearts.png";
+images.THREE_OF_SPADES_2.src = "../assets/images/3_of_spades.png";
+images.FOUR_OF_CLUBS_2.src = "../assets/images/4_of_clubs.png";
+images.FOUR_OF_DIAMONDS_2.src = "../assets/images/4_of_diamonds.png";
+images.FOUR_OF_HEARTS_2.src = "../assets/images/4_of_hearts.png";
+images.FOUR_OF_SPADES_2.src = "../assets/images/4_of_spades.png";
+images.FIVE_OF_CLUBS_2.src = "../assets/images/5_of_clubs.png";
+images.FIVE_OF_DIAMONDS_2.src = "../assets/images/5_of_diamonds.png";
+images.FIVE_OF_HEARTS_2.src = "../assets/images/5_of_hearts.png";
+images.FIVE_OF_SPADES_2.src = "../assets/images/5_of_spades.png";
+images.SIX_OF_CLUBS_2.src = "../assets/images/6_of_clubs.png";
+images.SIX_OF_DIAMONDS_2.src = "../assets/images/6_of_diamonds.png";
+images.SIX_OF_HEARTS_2.src = "../assets/images/6_of_hearts.png";
+images.SIX_OF_SPADES_2.src = "../assets/images/6_of_spades.png";
+images.SEVEN_OF_CLUBS_2.src = "../assets/images/7_of_clubs.png";
+images.SEVEN_OF_DIAMONDS_2.src = "../assets/images/7_of_diamonds.png";
+images.SEVEN_OF_HEARTS_2.src = "../assets/images/7_of_hearts.png";
+images.SEVEN_OF_SPADES_2.src = "../assets/images/7_of_spades.png";
+images.EIGHT_OF_CLUBS_2.src = "../assets/images/8_of_clubs.png";
+images.EIGHT_OF_DIAMONDS_2.src = "../assets/images/8_of_diamonds.png";
+images.EIGHT_OF_HEARTS_2.src = "../assets/images/8_of_hearts.png";
+images.EIGHT_OF_SPADES_2.src = "../assets/images/8_of_spades.png";
+images.NINE_OF_CLUBS_2.src = "../assets/images/9_of_clubs.png";
+images.NINE_OF_DIAMONDS_2.src = "../assets/images/9_of_diamonds.png";
+images.NINE_OF_HEARTS_2.src = "../assets/images/9_of_hearts.png";
+images.NINE_OF_SPADES_2.src = "../assets/images/9_of_spades.png";
+images.ACE_OF_CLUBS_2.src = "../assets/images/ace_of_clubs.png";
+images.ACE_OF_DIAMONDS_2.src = "../assets/images/ace_of_diamonds.png";
+images.ACE_OF_HEARTS_2.src = "../assets/images/ace_of_hearts.png";
+images.ACE_OF_SPADES_2.src = "../assets/images/ace_of_spades.png";
+images.JACK_OF_CLUBS_2.src = "../assets/images/jack_of_clubs2.png";
+images.JACK_OF_DIAMONDS_2.src = "../assets/images/jack_of_diamonds2.png";
+images.JACK_OF_HEARTS_2.src = "../assets/images/jack_of_hearts2.png";
+images.JACK_OF_SPADES_2.src = "../assets/images/jack_of_spades2.png";
+images.KING_OF_CLUBS_2.src = "../assets/images/king_of_clubs2.png";
+images.KING_OF_DIAMONDS_2.src = "../assets/images/king_of_diamonds2.png";
+images.KING_OF_HEARTS_2.src = "../assets/images/king_of_hearts2.png";
+images.KING_OF_SPADES_2.src = "../assets/images/king_of_spades2.png";
+images.QUEEN_OF_CLUBS_2.src = "../assets/images/queen_of_clubs2.png";
+images.QUEEN_OF_DIAMONDS_2.src = "../assets/images/queen_of_diamonds2.png";
+images.QUEEN_OF_HEARTS_2.src = "../assets/images/queen_of_hearts2.png";
+images.QUEEN_OF_SPADES_2.src = "../assets/images/queen_of_spades2.png";
+images.RED_JOKER_2.src = "../assets/images/red_joker.png";
+images.BLACK_JOKER_2.src = "../assets/images/black_joker.png";
 
 
 //Raster for all images
@@ -175,6 +286,122 @@ rendered_images.QUEEN_OF_HEARTS_RASTER= new paper.Raster(images.QUEEN_OF_HEARTS)
 rendered_images.QUEEN_OF_SPADES_RASTER= new paper.Raster(images.QUEEN_OF_SPADES);
 rendered_images.RED_JOKER_RASTER= new paper.Raster(images.RED_JOKER);
 rendered_images.BLACK_JOKER_RASTER= new paper.Raster(images.BLACK_JOKER);
+rendered_images.TEN_OF_CLUBS_RASTER_2= new paper.Raster(images.TEN_OF_CLUBS_2);
+rendered_images.TEN_OF_DIAMONDS_RASTER_2= new paper.Raster(images.TEN_OF_DIAMONDS_2);
+rendered_images.TEN_OF_HEARTS_RASTER_2= new paper.Raster(images.TEN_OF_HEARTS_2);
+rendered_images.TEN_OF_SPADES_RASTER_2= new paper.Raster(images.TEN_OF_SPADES_2);
+rendered_images.TWO_OF_CLUBS_RASTER_2= new paper.Raster(images.TWO_OF_CLUBS_2);
+rendered_images.TWO_OF_DIAMONDS_RASTER_2= new paper.Raster(images.TWO_OF_DIAMONDS_2);
+rendered_images.TWO_OF_HEARTS_RASTER_2= new paper.Raster(images.TWO_OF_HEARTS_2);
+rendered_images.TWO_OF_SPADES_RASTER_2= new paper.Raster(images.TWO_OF_SPADES_2);
+rendered_images.THREE_OF_CLUBS_RASTER_2= new paper.Raster(images.THREE_OF_CLUBS_2);
+rendered_images.THREE_OF_DIAMONDS_RASTER_2= new paper.Raster(images.THREE_OF_DIAMONDS_2);
+rendered_images.THREE_OF_HEARTS_RASTER_2= new paper.Raster(images.THREE_OF_HEARTS_2);
+rendered_images.THREE_OF_SPADES_RASTER_2= new paper.Raster(images.THREE_OF_SPADES_2);
+rendered_images.FOUR_OF_CLUBS_RASTER_2= new paper.Raster(images.FOUR_OF_CLUBS_2);
+rendered_images.FOUR_OF_DIAMONDS_RASTER_2= new paper.Raster(images.FOUR_OF_DIAMONDS_2);
+rendered_images.FOUR_OF_HEARTS_RASTER_2= new paper.Raster(images.FOUR_OF_HEARTS_2);
+rendered_images.FOUR_OF_SPADES_RASTER_2= new paper.Raster(images.FOUR_OF_SPADES_2);
+rendered_images.FIVE_OF_CLUBS_RASTER_2= new paper.Raster(images.FIVE_OF_CLUBS_2);
+rendered_images.FIVE_OF_DIAMONDS_RASTER_2= new paper.Raster(images.FIVE_OF_DIAMONDS_2);
+rendered_images.FIVE_OF_HEARTS_RASTER_2= new paper.Raster(images.FIVE_OF_HEARTS_2);
+rendered_images.FIVE_OF_SPADES_RASTER_2= new paper.Raster(images.FIVE_OF_SPADES_2);
+rendered_images.SIX_OF_CLUBS_RASTER_2= new paper.Raster(images.SIX_OF_CLUBS_2);
+rendered_images.SIX_OF_DIAMONDS_RASTER_2= new paper.Raster(images.SIX_OF_DIAMONDS_2);
+rendered_images.SIX_OF_HEARTS_RASTER_2= new paper.Raster(images.SIX_OF_HEARTS_2);
+rendered_images.SIX_OF_SPADES_RASTER_2= new paper.Raster(images.SIX_OF_SPADES_2);
+rendered_images.SEVEN_OF_CLUBS_RASTER_2= new paper.Raster(images.SEVEN_OF_CLUBS_2);
+rendered_images.SEVEN_OF_DIAMONDS_RASTER_2= new paper.Raster(images.SEVEN_OF_DIAMONDS_2);
+rendered_images.SEVEN_OF_HEARTS_RASTER_2= new paper.Raster(images.SEVEN_OF_HEARTS_2);
+rendered_images.SEVEN_OF_SPADES_RASTER_2= new paper.Raster(images.SEVEN_OF_SPADES_2);
+rendered_images.EIGHT_OF_CLUBS_RASTER_2= new paper.Raster(images.EIGHT_OF_CLUBS_2);
+rendered_images.EIGHT_OF_DIAMONDS_RASTER_2= new paper.Raster(images.EIGHT_OF_DIAMONDS_2);
+rendered_images.EIGHT_OF_HEARTS_RASTER_2= new paper.Raster(images.EIGHT_OF_HEARTS_2);
+rendered_images.EIGHT_OF_SPADES_RASTER_2= new paper.Raster(images.EIGHT_OF_SPADES_2);
+rendered_images.NINE_OF_CLUBS_RASTER_2= new paper.Raster(images.NINE_OF_CLUBS_2);
+rendered_images.NINE_OF_DIAMONDS_RASTER_2= new paper.Raster(images.NINE_OF_DIAMONDS_2);
+rendered_images.NINE_OF_HEARTS_RASTER_2= new paper.Raster(images.NINE_OF_HEARTS_2);
+rendered_images.NINE_OF_SPADES_RASTER_2= new paper.Raster(images.NINE_OF_SPADES_2);
+rendered_images.ACE_OF_CLUBS_RASTER_2= new paper.Raster(images.ACE_OF_CLUBS_2);
+rendered_images.ACE_OF_DIAMONDS_RASTER_2= new paper.Raster(images.ACE_OF_DIAMONDS_2);
+rendered_images.ACE_OF_HEARTS_RASTER_2= new paper.Raster(images.ACE_OF_HEARTS_2);
+rendered_images.ACE_OF_SPADES_RASTER_2= new paper.Raster(images.ACE_OF_SPADES_2);
+rendered_images.JACK_OF_CLUBS_RASTER_2= new paper.Raster(images.JACK_OF_CLUBS_2);
+rendered_images.JACK_OF_DIAMONDS_RASTER_2= new paper.Raster(images.JACK_OF_DIAMONDS_2);
+rendered_images.JACK_OF_HEARTS_RASTER_2= new paper.Raster(images.JACK_OF_HEARTS_2);
+rendered_images.JACK_OF_SPADES_RASTER_2= new paper.Raster(images.JACK_OF_SPADES_2);
+rendered_images.KING_OF_CLUBS_RASTER_2= new paper.Raster(images.KING_OF_CLUBS_2);
+rendered_images.KING_OF_DIAMONDS_RASTER_2= new paper.Raster(images.KING_OF_DIAMONDS_2);
+rendered_images.KING_OF_HEARTS_RASTER_2= new paper.Raster(images.KING_OF_HEARTS_2);
+rendered_images.KING_OF_SPADES_RASTER_2= new paper.Raster(images.KING_OF_SPADES_2);
+rendered_images.QUEEN_OF_CLUBS_RASTER_2= new paper.Raster(images.QUEEN_OF_CLUBS_2);
+rendered_images.QUEEN_OF_DIAMONDS_RASTER_2= new paper.Raster(images.QUEEN_OF_DIAMONDS_2);
+rendered_images.QUEEN_OF_HEARTS_RASTER_2= new paper.Raster(images.QUEEN_OF_HEARTS_2);
+rendered_images.QUEEN_OF_SPADES_RASTER_2= new paper.Raster(images.QUEEN_OF_SPADES_2);
+rendered_images.RED_JOKER_RASTER_2= new paper.Raster(images.RED_JOKER_2);
+rendered_images.BLACK_JOKER_RASTER_2= new paper.Raster(images.BLACK_JOKER_2);
+
+var DeckBuilding = {
+  Clubs: {},
+  Diamonds: {},
+  Hearts: {},
+  Spades: {},
+  Jokers : {}
+};
+var CardKeys = {
+  Two : {},
+  Three : {},
+  Four : {},
+  Five : {},
+  Six : {},
+  Seven : {},
+  Eight : {},
+  Nine : {},
+  Jack : {},
+  Queen : {},
+  King : {},
+  Ace : {}
+}
+var JokerKeys = {
+  Red : {},
+  Black : {}
+}
+var ImageKey = {
+  Image: new Image(),
+  Rastered_Image: {}
+}
+var VersionKey = {
+  One : {},
+  Two : {}
+}
+Object.keys(VersionKey).forEach(function (key) {
+  VersionKey[key] = DeckBuilding;
+});
+
+Object.keys(CardKeys).forEach(function (key) {
+  CardKeys[key] = ImageKey;
+});
+
+Object.keys(JokerKeys).forEach(function (key) {
+  JokerKeys[key] = ImageKey;
+});
+
+
+
+Object.keys(DeckBuilding).forEach(function (key) {
+  if(key != "Jokers") {
+      DeckBuilding[key] = CardKeys;
+  }
+  else {
+      DeckBuilding[key] = JokerKeys;
+  }
+});
+console.log(VersionKey)
+// DeckBuilding.Clubs.Two.One.Rastered_Image = new paper.Raster(images.QUEEN_OF_DIAMONDS_2);
+// DeckBuilding.Clubs.Two.Two.Rastered_Image = new paper.Raster(images.BLACK_JOKER_2);
+
+
+
 
 
 //Scale, set all images to not show unless necessary
@@ -207,7 +434,7 @@ for(var i = 0; i < 4 ; i++ ) {
 //Return: cardPosition: Array
 var cardPosition =  function() {
   var cardPosition = [];
-  for(var i = 0;i<13;i++) {
+  for(var i = 0;i<25;i++) {
     var displace = 250 + i*20;
     cardPosition[i] = new paper.Point(displace,800);
   }

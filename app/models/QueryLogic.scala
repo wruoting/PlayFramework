@@ -1,5 +1,4 @@
 package models
-import play.api.Logger
 
 class QueryLogic {
   /***

@@ -8,9 +8,9 @@ window.onload = function() {
 //paper is the variable that is added to the images scope, and references the active PaperScope project and all Paper.js classes can be accessed
 
   var cardProperties = {
-    playerID: 1,
-    cardNumber: 1,
-    cardState: 0
+    playerID: undefined,
+    cardNumber: undefined,
+    cardState: undefined
   }
   var validClick = true;
 
@@ -35,31 +35,62 @@ window.onload = function() {
   chooseCard(A,validClick,PField[2],cardProperties);
   var A = rendered_images.EIGHT_OF_HEARTS_RASTER;
   chooseCard(A,validClick,PField[3],cardProperties);
-  dealCard(A,PField[3],cardProperties);
+  var A = rendered_images.EIGHT_OF_HEARTS_RASTER;
+  chooseCard(A,validClick,PField[4],cardProperties);
+  //dealCard(cardProperties);
 }
 
-function dealCard(renderedImage, PField, cardProperties) {
-  renderedImage.onClick = function(event) {
-      this.position = PField;
-      setTimeout(function() {renderedImage.visible= false},1000);
-      var index = 2;
-        var cardDrawn;
+//rendered image is the deal button
+function dealCards(renderedImage, dealButton) {
+  //determine based on the player number what the card number, image, and position
+  dealButton.onClick = function(event) {
+    //start a new game
+    $.get(jsRoutes.controllers.HomeController.startGame(2),function(data) {
+    })
+      //leave 8 cards on the stack
+      for(var i = 0; i < 100; i++) {
+        cardProperties.playerID = (i+1)%4;
+        cardProperties.cardNumber = i+1;
+        cardProperties.cardState = (i+1);
 
 
-        jsRoutes.controllers.HomeController.dealCard(index).ajax({
-        type : 'GET',
-        async: false,
-        success : function(data) {
-          var Suit = data.split(" ")[0];
-          var Card = data.split(" ")[1];
-          var cardDealt = {
-            "Suit" : Suit,
-            "Card" : Card
+        //only draw cards for player 1
+        if(cardProperties.playerID = 1) {
+          var cardDrawn = requestCard (i)
+          //find from mapping what the card is drawn
+          //use renderedImage.image.visible
+          //to find position : this.position = PField[(i+1) % 25];
+          setTimeout(function() {renderedImage.visible= true},1000);
+        }
+        else {
+          //show animation for deal
+          switch (cardProperties.playerID){
+            case 2 :
+            case 3 :
+            case 4 :
+            default: null
           }
-          cardDrawn=cardDealt
-          }
-        });
+        }
       }
+    }
+}
+
+function requestCard (index) {
+  var cardDrawn;
+  jsRoutes.controllers.HomeController.dealCard(index).ajax({
+  type : 'GET',
+  async: false,
+  success : function(data) {
+    var Suit = data.split(" ")[0];
+    var Card = data.split(" ")[1];
+    var cardDealt = {
+      "Suit" : Suit,
+      "Card" : Card
+    }
+    cardDrawn=cardDealt
+    }
+  });
+  return cardDrawn;
 }
 //Parameters: paper.Raster, Boolean, paper.Point
 //Return: null
@@ -68,9 +99,8 @@ function chooseCard(renderedImage,validClick,PField,cardProperties) {
     renderedImage.onClick = function(event) {
         this.position = PField;
         setTimeout(function() {renderedImage.visible= false},1000);
-
-        $.get(jsRoutes.controllers.HomeController.startGame(2),function(data) {
-        })
+        // $.get(jsRoutes.controllers.HomeController.startGame(2),function(data) {
+        // })
 
       }
   }
