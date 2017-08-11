@@ -419,14 +419,18 @@ Object.keys(VersionKey).forEach(function (DeckNumber) {
 
 imagePathing("Two","Hearts")
 function imagePathing(CardNumber,SuitNumber) {
-  console.log(mapping_numbers.CardNumber)
+  console.log(Object.keys(mapping_numbers))
   // if(SuitNumber != "Jokers") {
   //   var src ="../assets/images/"+mapping_numbers[CardNumber]+"_of_"+mapping_suits[SuitNumber]+".png"
   // }
   // else {
   //   var src ="../assets/images/"+mapping_numbers[CardNumber]+"_"+mapping_suits[SuitNumber]+".png"
   // }
-
+for(key in mapping_numbers) {
+  if(mapping_numbers[key] == CardNumber) {
+    
+  }
+}
   var mapping_numbers = {
     Two : "2",
     Three : "3",
