@@ -14,7 +14,6 @@ window.onload = function() {
   }
   var validClick = true;
 
-VersionKey["Two"]["Hearts"]["Two"]["Image"]._visible
   rendered_images.TEN_OF_CLUBS_RASTER.position = cardPosition[0];
   rendered_images.TEN_OF_DIAMONDS_RASTER.position = cardPosition[1];
   rendered_images.NINE_OF_CLUBS_RASTER.position = cardPosition[2];

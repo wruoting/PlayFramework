@@ -412,7 +412,7 @@ Object.keys(VersionKey).forEach(function (DeckNumber) {
     });
 });
 
-// console.log(VersionKey["Two"]["Hearts"]["Two"]["Image"].src)
+VersionKey["Two"]["Hearts"]["Three"]["Image"].rasterImage.visible = true
 
   VersionKey["Two"]["Hearts"]["Two"]["Image"]["_visible"] = true
   console.log(VersionKey["Two"]["Hearts"]["Two"]["Image"])
@@ -463,7 +463,12 @@ function imagePathing(CardNumber,SuitNumber) {
   srcImage.src = src
   var rasterImage = new paper.Raster(srcImage);
   rasterImage.visible = false;
-  return rasterImage;
+
+  var imgObj = {
+    srcImage : srcImage,
+    rasterImage : rasterImage
+  }
+  return imgObj;
 }
 
 
