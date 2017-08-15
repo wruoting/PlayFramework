@@ -20,7 +20,9 @@ window.onload = function() {
   rendered_images.NINE_OF_CLUBS_RASTER.position = cardPosition[2];
   rendered_images.EIGHT_OF_HEARTS_RASTER.position = cardPosition[3];
   rendered_images.EIGHT_OF_HEARTS_RASTER.bringToFront();
-
+  VersionKey["One"]["Hearts"]["Three"]["Rastered_Image"].position = cardPosition[6];
+  console.log(VersionKey["One"]["Hearts"]["Three"]["Image"].src)
+  VersionKey["One"]["Hearts"]["Three"]["Rastered_Image"].visible = true;
   rendered_images.EIGHT_OF_HEARTS_RASTER.visible= true;
   rendered_images.TEN_OF_CLUBS_RASTER.visible= true;
   rendered_images.TEN_OF_DIAMONDS_RASTER.visible= true;

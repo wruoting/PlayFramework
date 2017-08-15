@@ -341,6 +341,7 @@ rendered_images.QUEEN_OF_SPADES_RASTER_2= new paper.Raster(images.QUEEN_OF_SPADE
 rendered_images.RED_JOKER_RASTER_2= new paper.Raster(images.RED_JOKER_2);
 rendered_images.BLACK_JOKER_RASTER_2= new paper.Raster(images.BLACK_JOKER_2);
 
+
 var DeckBuilding = {
   Clubs: {},
   Diamonds: {},
@@ -370,67 +371,56 @@ var ImageKey = {
   Image: new Image(),
   Rastered_Image: {}
 }
+
 var VersionKey = {
   One : {},
   Two : {}
 }
 //spread syntax allows an iterable to be expanded where object literals are expanded. basically allows you to not just reference when Object[key]= Object B.
+
 Object.keys(JokerKeys).forEach(function (key) {
-  JokerKeys[key] =  Object.assign({},ImageKey);
+  JokerKeys[key] =  jQuery.extend(true,{},ImageKey);
 });
 Object.keys(CardKeys).forEach(function (key) {
-  CardKeys[key] = Object.assign({},ImageKey);
+  CardKeys[key] = jQuery.extend(true,{},ImageKey);
 });
 
 Object.keys(DeckBuilding).forEach(function (key) {
   if(key != "Jokers") {
-      DeckBuilding[key] =  Object.assign({},CardKeys);
+      DeckBuilding[key] =   jQuery.extend(true,{},CardKeys);
   }
   else {
-      DeckBuilding[key] =  Object.assign({},JokerKeys);
+      DeckBuilding[key] =  jQuery.extend(true,{},JokerKeys);
   }
 });
 
+
 Object.keys(VersionKey).forEach(function (key) {
-  VersionKey[key] = Object.assign({},DeckBuilding);
+  VersionKey[key] = jQuery.extend(true,{},DeckBuilding);
 });
 
 //need to figure out naming for image source and raster source
 Object.keys(VersionKey).forEach(function (DeckNumber) {
   //One and Two
     Object.keys(VersionKey[DeckNumber]).forEach(function (SuitNumber) {
-      var suit = VersionKey[DeckNumber][SuitNumber]
       //Suits and Jokers
       Object.keys(VersionKey[DeckNumber][SuitNumber]).forEach(function (CardNumber) {
-        var card = VersionKey[DeckNumber][SuitNumber][CardNumber]
-          // if(VersionKey[DeckNumber][SuitNumber][CardNumber] != "Jokers") {
-          //   Object.keys(VersionKey[DeckNumber][SuitNumber][CardNumber]).forEach(function (ImageNumber) {
-          //       VersionKey[DeckNumber][SuitNumber][CardNumber][ImageNumber]
-          //   });
-          // }
-          // else {
+            //Image, src, rastered
             Object.keys(VersionKey[DeckNumber][SuitNumber][CardNumber]).forEach(function (ImageNumber) {
-                  //VersionKey[DeckNumber][SuitNumber][CardNumber][ImageNumber] = imagePathing(CardNumber,SuitNumber);
+                if(ImageNumber == "Image"){
+                  //the src property needs to be deep cloned
+                  VersionKey[DeckNumber][SuitNumber][CardNumber]["Image"].src = jQuery.extend(true,{},imagePathing(CardNumber,SuitNumber));
+                  VersionKey[DeckNumber][SuitNumber][CardNumber]["Rastered_Image"] = new paper.Raster(VersionKey[DeckNumber][SuitNumber][CardNumber]["Image"]);
+                  VersionKey[DeckNumber][SuitNumber][CardNumber]["Rastered_Image"].visible = false;
+                }
             });
-          //}
       });
     });
 });
+console.log(VersionKey)
 
-imagePathing("Two","Hearts")
+
 function imagePathing(CardNumber,SuitNumber) {
-  console.log(Object.keys(mapping_numbers))
-  // if(SuitNumber != "Jokers") {
-  //   var src ="../assets/images/"+mapping_numbers[CardNumber]+"_of_"+mapping_suits[SuitNumber]+".png"
-  // }
-  // else {
-  //   var src ="../assets/images/"+mapping_numbers[CardNumber]+"_"+mapping_suits[SuitNumber]+".png"
-  // }
-for(key in mapping_numbers) {
-  if(mapping_numbers[key] == CardNumber) {
-    
-  }
-}
   var mapping_numbers = {
     Two : "2",
     Three : "3",
@@ -461,10 +451,16 @@ for(key in mapping_numbers) {
     Hearts : "hearts",
     Jokers : "joker"
   }
-  console.log(src);
-  return src;
-}
 
+  if(SuitNumber != "Jokers") {
+    var src = "../assets/images/"+mapping_numbers[CardNumber]+"_of_"+mapping_suits[SuitNumber]+".png"
+  }
+  else {
+    var src = "../assets/images/"+mapping_numbers[CardNumber]+"_"+mapping_suits[SuitNumber]+".png"
+  }
+  var srcObj = {src: src}
+  return srcObj;
+}
 
 
 //Scale, set all images to not show unless necessary
