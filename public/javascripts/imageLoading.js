@@ -368,8 +368,7 @@ var JokerKeys = {
   Black : {}
 }
 var ImageKey = {
-  Image: new Image(),
-  Rastered_Image: {}
+  Image: {}
 }
 
 var VersionKey = {
@@ -384,7 +383,6 @@ Object.keys(JokerKeys).forEach(function (key) {
 Object.keys(CardKeys).forEach(function (key) {
   CardKeys[key] = jQuery.extend(true,{},ImageKey);
 });
-
 Object.keys(DeckBuilding).forEach(function (key) {
   if(key != "Jokers") {
       DeckBuilding[key] =   jQuery.extend(true,{},CardKeys);
@@ -393,8 +391,6 @@ Object.keys(DeckBuilding).forEach(function (key) {
       DeckBuilding[key] =  jQuery.extend(true,{},JokerKeys);
   }
 });
-
-
 Object.keys(VersionKey).forEach(function (key) {
   VersionKey[key] = jQuery.extend(true,{},DeckBuilding);
 });
@@ -409,17 +405,17 @@ Object.keys(VersionKey).forEach(function (DeckNumber) {
             Object.keys(VersionKey[DeckNumber][SuitNumber][CardNumber]).forEach(function (ImageNumber) {
                 if(ImageNumber == "Image"){
                   //the src property needs to be deep cloned
-                  VersionKey[DeckNumber][SuitNumber][CardNumber]["Image"].src = jQuery.extend(true,{},imagePathing(CardNumber,SuitNumber));
-                  VersionKey[DeckNumber][SuitNumber][CardNumber]["Rastered_Image"] = new paper.Raster(VersionKey[DeckNumber][SuitNumber][CardNumber]["Image"]);
-                  VersionKey[DeckNumber][SuitNumber][CardNumber]["Rastered_Image"].visible = false;
+                  VersionKey[DeckNumber][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},imagePathing(CardNumber,SuitNumber));
                 }
             });
       });
     });
 });
-console.log(VersionKey)
 
+// console.log(VersionKey["Two"]["Hearts"]["Two"]["Image"].src)
 
+  VersionKey["Two"]["Hearts"]["Two"]["Image"]["_visible"] = true
+  console.log(VersionKey["Two"]["Hearts"]["Two"]["Image"])
 function imagePathing(CardNumber,SuitNumber) {
   var mapping_numbers = {
     Two : "2",
@@ -453,13 +449,21 @@ function imagePathing(CardNumber,SuitNumber) {
   }
 
   if(SuitNumber != "Jokers") {
-    var src = "../assets/images/"+mapping_numbers[CardNumber]+"_of_"+mapping_suits[SuitNumber]+".png"
+    if(CardNumber == "Jack" || CardNumber == "King" || CardNumber =="Queen") {
+      var src = "../assets/images/"+mapping_numbers[CardNumber]+"_of_"+mapping_suits[SuitNumber]+"2.png"
+    }
+    else {
+      var src = "../assets/images/"+mapping_numbers[CardNumber]+"_of_"+mapping_suits[SuitNumber]+".png"
+    }
   }
   else {
-    var src = "../assets/images/"+mapping_numbers[CardNumber]+"_"+mapping_suits[SuitNumber]+".png"
-  }
-  var srcObj = {src: src}
-  return srcObj;
+      var src = "../assets/images/"+mapping_numbers[CardNumber]+"_"+mapping_suits[SuitNumber]+".png"
+    }
+  var srcImage = new Image();
+  srcImage.src = src
+  var rasterImage = new paper.Raster(srcImage);
+  rasterImage.visible = false;
+  return rasterImage;
 }
 
 
