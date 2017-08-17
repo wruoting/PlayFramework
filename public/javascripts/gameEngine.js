@@ -12,67 +12,55 @@ window.onload = function() {
     cardNumber: undefined,
     cardState: undefined
   }
-  var validClick = true;
+  rasterDeal.visible = true;
+  dealCards(rasterDeal,cardProperties,DeckKey);
 
-  rendered_images.TEN_OF_CLUBS_RASTER.position = cardPosition[0];
-  rendered_images.TEN_OF_DIAMONDS_RASTER.position = cardPosition[1];
-  rendered_images.NINE_OF_CLUBS_RASTER.position = cardPosition[2];
-  rendered_images.EIGHT_OF_HEARTS_RASTER.position = cardPosition[3];
-  rendered_images.EIGHT_OF_HEARTS_RASTER.bringToFront();
-  rendered_images.EIGHT_OF_HEARTS_RASTER.visible= true;
-  rendered_images.TEN_OF_CLUBS_RASTER.visible= true;
-  rendered_images.TEN_OF_DIAMONDS_RASTER.visible= true;
-  rendered_images.NINE_OF_CLUBS_RASTER.visible= true;
-
-  //can wrap to make more generic
-  var A = rendered_images.TEN_OF_CLUBS_RASTER;
-  chooseCard(A,validClick,PField[0],cardProperties);
-  var A = rendered_images.TEN_OF_DIAMONDS_RASTER;
-  chooseCard(A,validClick,PField[1],cardProperties);
-  var A = rendered_images.NINE_OF_CLUBS_RASTER;
-  chooseCard(A,validClick,PField[2],cardProperties);
-  var A = rendered_images.EIGHT_OF_HEARTS_RASTER;
-  chooseCard(A,validClick,PField[3],cardProperties);
-  var A = rendered_images.EIGHT_OF_HEARTS_RASTER;
-  chooseCard(A,validClick,PField[4],cardProperties);
   //dealCard(cardProperties);
 }
 
 //rendered image is the deal button
-function dealCards(renderedImage, dealButton) {
+function dealCards(rasterDeal,cardProperties,DeckKey) {
+
   //determine based on the player number what the card number, image, and position
-  dealButton.onClick = function(event) {
+  rasterDeal.onClick = function(event) {
     //start a new game
     $.get(jsRoutes.controllers.HomeController.startGame(2),function(data) {
     })
+    //at this point the deck has been built
       //leave 8 cards on the stack
       for(var i = 0; i < 100; i++) {
         cardProperties.playerID = (i+1)%4;
         cardProperties.cardNumber = i+1;
         cardProperties.cardState = (i+1);
 
-
         //only draw cards for player 1
         if(cardProperties.playerID = 1) {
-          var cardDrawn = requestCard (i)
+          var cardDrawn = requestCard (i+1);
           //find from mapping what the card is drawn
-          //use renderedImage.image.visible
-          //to find position : this.position = PField[(i+1) % 25];
-          setTimeout(function() {renderedImage.visible= true},1000);
+
+          var mappedCardDrawn = cardSuitMapping(cardDrawn);
+
+          DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible = true;
+          //to find position :
+           DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"].position = PField[(i+1) % 25];
+
+          //setTimeout(function() {renderedImage.visible= true},1000);
         }
-        else {
-          //show animation for deal
-          switch (cardProperties.playerID){
-            case 2 :
-            case 3 :
-            case 4 :
-            default: null
-          }
-        }
+        // else {
+        //   //show animation for deal
+        //   switch (cardProperties.playerID){
+        //     case 2 :
+        //     case 3 :
+        //     case 4 :
+        //     default: null
+        //   }
+        // }
       }
     }
 }
 
+// Parameter : index from cardlist created
+// Return : Object with Suit and Card
 function requestCard (index) {
   var cardDrawn;
   jsRoutes.controllers.HomeController.dealCard(index).ajax({
@@ -88,8 +76,11 @@ function requestCard (index) {
     cardDrawn=cardDealt
     }
   });
+  //type {Suit : Int,
+// Card : Int}
   return cardDrawn;
 }
+
 //Parameters: paper.Raster, Boolean, paper.Point
 //Return: null
 function chooseCard(renderedImage,validClick,PField,cardProperties) {
@@ -105,23 +96,6 @@ function chooseCard(renderedImage,validClick,PField,cardProperties) {
 }
 
 
-
-
-var successFn = function(data) {
-if(data == "true"){
-      console.log(data)
-  }
-  else{
-    console.log("false")
-  }
-  console.debug("Success of Ajax Call");
-  console.debug(data);
-  };
-
-var errorFn = function(err) {
-  console.debug("Error of ajax Call");
-  console.debug(err);
-}
 
 function main() {
   //Start dealing

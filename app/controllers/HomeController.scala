@@ -90,7 +90,7 @@ class HomeController @Inject() (db: Database)  extends Controller {
     Ok(SuitCard)
   }
 
-
+  //Creates the initial decklist to deal cards
   def startGame(numberOfDecks: Int) = Action {
     val GameLogic = new ShengJiLogic
     val QueryLogic = new QueryLogic

@@ -48,6 +48,9 @@ class ShengJiLogic {
 
       randomCardList(i) = (suitNumber,cardNumber)
     }
+    //type Array[(Int, Int)]
+    //Suit ranges from 0 to 3 (Spades, Hearts, Diamonds, Clubs)
+    //card ranges from 0 to 27 (2 to Ace then 2 to Ace again then 4 jokers)
       return randomCardList
 }
 
@@ -122,10 +125,10 @@ class ShengJiLogic {
     )
     //Suit mapping
     val suitToCard=Map (
-      0->"Clubs",
-      1->"Spades",
-      2->"Hearts",
-      3->"Diamonds"
+      0-> "Clubs",
+      1-> "Spades",
+      2-> "Hearts",
+      3-> "Diamonds"
     )
     //Player to Hand mapping
     //Given player X we give them a mapping to use for cardState
