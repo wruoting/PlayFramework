@@ -129,6 +129,8 @@ function imagePathing(CardNumber,SuitNumber) {
   var srcImage = new Image();
   srcImage.src = src
   var rasterImage = new paper.Raster(srcImage);
+  // var rasterize = rasterImage.rasterize();
+  // rasterize.scale(5);
   rasterImage.visible = false;
   rasterImage.scale(0.2);
 
@@ -219,8 +221,8 @@ for(var i = 0; i < 4 ; i++ ) {
 //Return: cardPosition: Array
 var cardPosition =  function() {
   var cardPosition = [];
-  for(var i = 0;i<25;i++) {
-    var displace = 250 + i*20;
+  for(var i = 1;i<26;i++) {
+    var displace = 250 + (i-1)*20;
     cardPosition[i] = new paper.Point(displace,800);
   }
   return cardPosition;

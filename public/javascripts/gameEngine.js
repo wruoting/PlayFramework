@@ -12,9 +12,9 @@ window.onload = function() {
     cardNumber: undefined,
     cardState: undefined
   }
-  rasterDeal.visible = true;
-  dealCards(rasterDeal,cardProperties,DeckKey);
 
+  dealCards(rasterDeal,cardProperties,DeckKey);
+  rasterDeal.visible = true;
   //dealCard(cardProperties);
 }
 
@@ -29,6 +29,7 @@ function dealCards(rasterDeal,cardProperties,DeckKey) {
     //at this point the deck has been built
       //leave 8 cards on the stack
       for(var i = 0; i < 100; i++) {
+        console.log(cardProperties.playerID)
         cardProperties.playerID = (i+1)%4;
         cardProperties.cardNumber = i+1;
         cardProperties.cardState = (i+1);
@@ -40,9 +41,10 @@ function dealCards(rasterDeal,cardProperties,DeckKey) {
 
           var mappedCardDrawn = cardSuitMapping(cardDrawn);
 
-          DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible = true;
           //to find position :
-           DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"].position = PField[(i+1) % 25];
+           DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = cardPosition[(i/4)];
+           DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].bringToFront();
+           DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible = true
 
           //setTimeout(function() {renderedImage.visible= true},1000);
         }
