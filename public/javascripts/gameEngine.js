@@ -8,18 +8,18 @@ window.onload = function() {
 //paper is the variable that is added to the images scope, and references the active PaperScope project and all Paper.js classes can be accessed
 
   var cardProperties = {
-    playerID: undefined,
-    cardNumber: undefined,
-    cardState: undefined
+    playerID: 0,
+    cardNumber: 0,
+    cardState: 0
   }
 
-  dealCards(rasterDeal,cardProperties,DeckKey);
+  dealCards(rasterDeal,cardProperties,DeckKey,PField);
   rasterDeal.visible = true;
   //dealCard(cardProperties);
 }
 
 //rendered image is the deal button
-function dealCards(rasterDeal,cardProperties,DeckKey) {
+function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
 
   //determine based on the player number what the card number, image, and position
   rasterDeal.onClick = function(event) {
@@ -28,36 +28,30 @@ function dealCards(rasterDeal,cardProperties,DeckKey) {
     })
     //at this point the deck has been built
       //leave 8 cards on the stack
-      for(var i = 0; i < 100; i++) {
-        console.log(cardProperties.playerID)
-        cardProperties.playerID = (i+1)%4;
-        cardProperties.cardNumber = i+1;
-        cardProperties.cardState = (i+1);
+        function onFrame(event) {
+        for(var i = 0; i < 100; i++) {
+          cardProperties.playerID = (i+1)%4;
+          cardProperties.cardNumber = i+1;
+          cardProperties.cardState = (i+1);
+          //only draw cards for player 1
+          if(cardProperties.playerID == 1) {
+            var cardDrawn = requestCard (i+1);
+            //find from mapping what the card is drawn
 
-        //only draw cards for player 1
-        if(cardProperties.playerID = 1) {
-          var cardDrawn = requestCard (i+1);
-          //find from mapping what the card is drawn
+            var mappedCardDrawn = cardSuitMapping(cardDrawn);
 
-          var mappedCardDrawn = cardSuitMapping(cardDrawn);
+            //to find position :
+            DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].bringToFront();
+            DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = PField[0];
+            DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible= true
 
-          //to find position :
-           DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = cardPosition[(i/4)];
-           DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].bringToFront();
-           DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible = true
+            DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = cardPosition[(i/4)];
+            //setTimeout(function() {DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible= true},1000);
+            }
 
-          //setTimeout(function() {renderedImage.visible= true},1000);
+          }
         }
-        // else {
-        //   //show animation for deal
-        //   switch (cardProperties.playerID){
-        //     case 2 :
-        //     case 3 :
-        //     case 4 :
-        //     default: null
-        //   }
-        // }
-      }
+
     }
 }
 
