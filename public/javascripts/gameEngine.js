@@ -28,29 +28,47 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
     })
     //at this point the deck has been built
       //leave 8 cards on the stack
-        function onFrame(event) {
         for(var i = 0; i < 100; i++) {
-          cardProperties.playerID = (i+1)%4;
-          cardProperties.cardNumber = i+1;
-          cardProperties.cardState = (i+1);
-          //only draw cards for player 1
-          if(cardProperties.playerID == 1) {
-            var cardDrawn = requestCard (i+1);
-            //find from mapping what the card is drawn
+          console.log("test")
+          waitTimer(i);
+          wait(6000);
+          console.log("after")
+          // var dealTimeoutInterval = setTimeout(waitTimer(i), 10000);
+          // clearTimeout(dealTimeoutInterval);
+        }
+          function waitTimer(i) {
+              cardProperties.playerID = (i+1)%4;
+              cardProperties.cardNumber = i+1;
+              cardProperties.cardState = (i+1);
+              //only draw cards for player 1
+              if(cardProperties.playerID == 1) {
+                  var cardDrawn = requestCard (i+1);
+                  //find from mapping what the card is drawn
 
-            var mappedCardDrawn = cardSuitMapping(cardDrawn);
+                  var mappedCardDrawn = cardSuitMapping(cardDrawn);
 
-            //to find position :
-            DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].bringToFront();
-            DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = PField[0];
-            DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible= true
+                  //to find position :
+                  DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].bringToFront();
+                  DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = PField[0];
+                  DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible= true
 
-            DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = cardPosition[(i/4)];
-            //setTimeout(function() {DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible= true},1000);
+                  //DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = cardPosition[(i/4)] ;
+                  var xPosition = cardPosition[(i/4)].x - PField[0].x;
+                  var yPosition = cardPosition[(i/4)].y - PField[0].y;
+                  if(DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position.y < 800) {
+                    var dealOneCardInterval = setInterval(dealTimer, 300);
+                  }
+                  function dealTimer() {
+                    if(DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position.y >= 800) {
+                      clearInterval(dealOneCardInterval)
+                    }
+                    else{
+                      DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].translate(xPosition/20,yPosition/20)
+                    }
+                  }
+              }
             }
 
-          }
-        }
 
     }
 }

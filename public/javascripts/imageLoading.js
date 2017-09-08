@@ -216,14 +216,24 @@ for(var i = 0; i < 4 ; i++ ) {
   }
 }
 
-//Creates the spaces for cards
-//Parameters: n/a
-//Return: cardPosition: Array
-var cardPosition =  function() {
-  var cardPosition = [];
-  for(var i = 1;i<26;i++) {
-    var displace = 250 + (i-1)*20;
-    cardPosition[i] = new paper.Point(displace,800);
+// //Creates the spaces for cards
+// //Parameters: n/a
+// //Return: cardPosition: Array
+ var cardPosition =  function() {
+  var cardPosition = new Array(26);
+  for(var i = 0;i<25;i++) {
+    var displace = 250 + i*20;
+    cardPosition [i] = new paper.Point(displace,800);
   }
   return cardPosition;
 }(); //this is a self invoking function since it has () at the end. Only runs once since it returns an array once.
+
+//Creates wait function
+
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
