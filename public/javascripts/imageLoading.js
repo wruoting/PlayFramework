@@ -81,14 +81,14 @@ Object.keys(DeckKey).forEach(function (DeckNumber) {
             Object.keys(DeckKey[DeckNumber][SuitNumber][CardNumber]).forEach(function (ImageNumber) {
                 if(ImageNumber == "Image"){
                   //the src property needs to be deep cloned
-                  DeckKey[DeckNumber][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},imagePathing(CardNumber,SuitNumber));
+                  DeckKey[DeckNumber][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},imagePathing(DeckNumber,CardNumber,SuitNumber));
                 }
             });
       });
     });
 });
 //takes a card number and a suit, and returns a rastered image object
-function imagePathing(CardNumber,SuitNumber) {
+function imagePathing(DeckNumber,CardNumber,SuitNumber) {
   var mapping_numbers = {
     Two : "2",
     Three : "3",
@@ -134,7 +134,12 @@ function imagePathing(CardNumber,SuitNumber) {
     }
   var srcImage = new Image();
   srcImage.src = src
-  var rasterImage = new paper.Raster(srcImage);
+  if(DeckNumber == "One") {
+    var rasterImage = new paper.Raster(srcImage);
+  }
+  else {
+    var rasterImage = rasterImage.clone(); //need to clone this item so that you don't have missing cards
+  }
   // var rasterize = rasterImage.rasterize();
   // rasterize.scale(5);
   rasterImage.visible = false;

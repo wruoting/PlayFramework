@@ -61,6 +61,7 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
 
                   DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].translate(xPosition/15,yPosition/15);
                 break;
+                //think issue is duplicate cards
               case 2:
                   if(event.count % 15 == 0) {
                   copyCardback[playerOtherCount] = rasterBackOfCard.clone();
