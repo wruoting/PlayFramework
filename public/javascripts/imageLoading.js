@@ -5,6 +5,12 @@
   paper.setup(canvas);
 
 //Declare all images used
+var BackOfCard = new Image();
+BackOfCard.src = "../assets/images/CardBack.jpg";
+var rasterBackOfCard = new paper.Raster(BackOfCard);
+rasterBackOfCard.visible = false;
+rasterBackOfCard.scale(0.2);
+
 var DealButton = new Image();
 DealButton.src = "../assets/images/DealButton.jpg";
 var rasterDeal = new paper.Raster(DealButton);
@@ -222,11 +228,39 @@ for(var i = 0; i < 4 ; i++ ) {
  var cardPosition =  function() {
   var cardPosition = new Array(26);
   for(var i = 0;i<25;i++) {
-    var displace = 250 + i*20;
+    var displace = 350 + i*20;
     cardPosition [i] = new paper.Point(displace,800);
   }
   return cardPosition;
 }(); //this is a self invoking function since it has () at the end. Only runs once since it returns an array once.
+
+var cardPositionP2 =  function() {
+ var cardPositionP2 = new Array(26);
+ for(var i = 0;i<25;i++) {
+   var displace = 675 - i*20;
+   cardPositionP2 [i] = new paper.Point(1100,displace);
+ }
+ return cardPositionP2;
+}();
+
+var cardPositionP3 =  function() {
+ var cardPositionP3 = new Array(26);
+ for(var i = 0;i<25;i++) {
+   var displace = 850 - i*20;
+   cardPositionP3 [i] = new paper.Point(displace,100);
+ }
+ return cardPositionP3;
+}();
+
+var cardPositionP4 =  function() {
+ var cardPositionP4 = new Array(26);
+ for(var i = 0;i<25;i++) {
+   var displace = 225 + i*20;
+   cardPositionP4 [i] = new paper.Point(100,displace);
+ }
+ return cardPositionP4;
+}();
+
 
 //Creates wait function
 
