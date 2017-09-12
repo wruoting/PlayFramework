@@ -47,11 +47,14 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
                 //only draw cards for player 1
             switch (cardProperties.playerID) {
               case 1:
+
                 var cardDrawn = requestCard(playerCount+1);
                 //find from mapping what the card is drawn
                 var mappedCardDrawn = cardSuitMapping(cardDrawn);
                 var xPosition = cardPosition[(playerCount/4)].x - PField[0].x;
                 var yPosition = cardPosition[(playerCount/4)].y - PField[0].y;
+                // console.log(mappedCardDrawn["Deck"])
+                // console.log(DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"])
                 if(event.count % 15 == 0) {
                     //to find position :
                     DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].bringToFront();

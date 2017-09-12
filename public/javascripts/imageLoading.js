@@ -51,6 +51,10 @@ var DeckKey = {
   One : {},
   Two : {}
 }
+var DeckRaster = {
+  One: {},
+  Two: {}
+}
 //spread syntax allows an iterable to be expanded where object literals are expanded. basically allows you to not just reference when Object[key]= Object B.
 
 Object.keys(JokerKeys).forEach(function (key) {
@@ -81,14 +85,25 @@ Object.keys(DeckKey).forEach(function (DeckNumber) {
             Object.keys(DeckKey[DeckNumber][SuitNumber][CardNumber]).forEach(function (ImageNumber) {
                 if(ImageNumber == "Image"){
                   //the src property needs to be deep cloned
-                  DeckKey[DeckNumber][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},imagePathing(DeckNumber,CardNumber,SuitNumber));
+                  var src = imageSource(DeckNumber,CardNumber,SuitNumber)
+                  if(DeckNumber == "One") {
+                    DeckRaster["One"] = rasterCreation(src,DeckNumber);
+                    DeckRaster["Two"] = rasterCopy(DeckRaster["One"]);
+
+                    DeckKey["One"][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},DeckRaster["One"]);
+                    DeckKey["Two"][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},DeckRaster["Two"]);
+                  }
+
+                  // console.log(DeckNumber)
+                  // console.log(DeckKey[DeckNumber][SuitNumber][CardNumber]["Image"].rasterImage.source)
+
                 }
             });
       });
     });
 });
 //takes a card number and a suit, and returns a rastered image object
-function imagePathing(DeckNumber,CardNumber,SuitNumber) {
+function imageSource(DeckNumber,CardNumber,SuitNumber) {
   var mapping_numbers = {
     Two : "2",
     Three : "3",
@@ -132,18 +147,15 @@ function imagePathing(DeckNumber,CardNumber,SuitNumber) {
   else {
       var src = "../assets/images/"+mapping_numbers[CardNumber]+"_"+mapping_suits[SuitNumber]+".png"
     }
-  var srcImage = new Image();
-  srcImage.src = src
-  if(DeckNumber == "One") {
+  return src;
+}
+
+function rasterCreation(src,DeckNumber) {
+    var srcImage = new Image();
+    srcImage.src = src
     var rasterImage = new paper.Raster(srcImage);
-  }
-  else {
-    var rasterImage = rasterImage.clone(); //need to clone this item so that you don't have missing cards
-  }
-  // var rasterize = rasterImage.rasterize();
-  // rasterize.scale(5);
-  rasterImage.visible = false;
-  rasterImage.scale(0.2);
+    rasterImage.visible = false;
+    rasterImage.scale(0.2);
 
   var imgObj = {
     srcImage : srcImage,
@@ -151,7 +163,18 @@ function imagePathing(DeckNumber,CardNumber,SuitNumber) {
   }
   return imgObj;
 }
+//apparently this function only clones the last thing given to it
+function rasterCopy(rasterObject) {
+  var rasterCopy = rasterObject.rasterImage.clone();
+  rasterCopy.visible = true;
+  rasterCopy.scale(0.2);
 
+  var imgObj = {
+    srcImage : rasterObject.srcImage,
+    rasterImage : rasterCopy
+  }
+  return imgObj;
+}
 function cardSuitMapping(cardDrawn) {
   var Suit = cardDrawn["Suit"];
   var Card = cardDrawn["Card"];
