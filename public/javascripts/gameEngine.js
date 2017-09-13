@@ -5,7 +5,26 @@
 
 window.onload = function() {
 
+
+
 //paper is the variable that is added to the images scope, and references the active PaperScope project and all Paper.js classes can be accessed
+var DeckRaster = []
+ var A = rasterCreation("../assets/images/6_of_spades.png")
+ var B = rasterCreation("../assets/images/7_of_spades.png")
+
+ DeckRaster["One"] = A.rasterImage;
+ DeckRaster["Two"] = A.rasterCopy;
+DeckRaster["Three"] = jQuery.extend(true,{},DeckRaster["One"]);
+console.log(DeckRaster["One"])
+console.log(DeckRaster["Three"])
+ DeckKey["One"]["Hearts"]["Two"]["Image"]["rasterImage"] = DeckRaster["Three"]
+
+ //A.rasterImage.visible = true
+// A.rasterCopy.visible = true
+//
+// A.rasterCopy.position = new Point (100,100)
+DeckKey["One"]["Hearts"]["Two"]["Image"]["rasterImage"].visible = true
+
 
   var cardProperties = {
     playerID: 0,
@@ -15,8 +34,6 @@ window.onload = function() {
 
   dealCards(rasterDeal,cardProperties,DeckKey,PField);
   rasterDeal.visible = true;
-  //dealCard(cardProperties);
-
 
 //rendered image is the deal button
 function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
@@ -53,20 +70,21 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
                 var mappedCardDrawn = cardSuitMapping(cardDrawn);
                 var xPosition = cardPosition[(playerCount/4)].x - PField[0].x;
                 var yPosition = cardPosition[(playerCount/4)].y - PField[0].y;
-                // console.log(mappedCardDrawn["Deck"])
-                // console.log(DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"])
                 if(event.count % 15 == 0) {
                     //to find position :
                     DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].bringToFront();
-                    DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = PField[0];
+                    DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = new Point(100,100)//PField[0];
                     DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible= true;
+
+                    console.log(mappedCardDrawn["Deck"])
+                    console.log(DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position)
                   }
 
                   DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].translate(xPosition/15,yPosition/15);
                 break;
                 //think issue is duplicate cards
               case 2:
-                  if(event.count % 15 == 0) {
+                if(event.count % 15 == 0) {
                   copyCardback[playerOtherCount] = rasterBackOfCard.clone();
                   copyCardback[playerOtherCount].bringToFront();
                   copyCardback[playerOtherCount].visible= true;
@@ -149,12 +167,4 @@ function chooseCard(renderedImage,validClick,PField,cardProperties) {
 
       }
   }
-}
-
-
-
-function main() {
-  //Start dealing
-  var startButton = document.createElement("DealButton");
-
 }

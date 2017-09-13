@@ -1,8 +1,10 @@
 
 //set up canvas//canvas
-  var canvas = document.getElementById("gameBox");
-  var ctx = canvas.getContext("2d");
-  paper.setup(canvas);
+var canvas = document.getElementById("gameBox");
+var ctx = canvas.getContext("2d");
+paper.install(window);
+paper.setup(canvas);
+
 
 //Declare all images used
 var BackOfCard = new Image();
@@ -14,94 +16,99 @@ rasterBackOfCard.scale(0.2);
 var DealButton = new Image();
 DealButton.src = "../assets/images/DealButton.jpg";
 var rasterDeal = new paper.Raster(DealButton);
+rasterDeal.position = new paper.Point(400,400)
 rasterDeal.visible = false;
 rasterDeal.scale(0.2);
 
-var DeckBuilding = {
-  Clubs: {},
-  Diamonds: {},
-  Hearts: {},
-  Spades: {},
-  Jokers : {}
-};
-var CardKeys = {
-  Two : {},
-  Three : {},
-  Four : {},
-  Five : {},
-  Six : {},
-  Seven : {},
-  Eight : {},
-  Nine : {},
-  Ten : {},
-  Jack : {},
-  Queen : {},
-  King : {},
-  Ace : {}
-}
-var JokerKeys = {
-  Red : {},
-  Black : {}
-}
-var ImageKey = {
-  Image: {}
-}
 
-var DeckKey = {
-  One : {},
-  Two : {}
-}
-var DeckRaster = {
-  One: {},
-  Two: {}
-}
-//spread syntax allows an iterable to be expanded where object literals are expanded. basically allows you to not just reference when Object[key]= Object B.
+//Deck, Suit, Card, Image, {srcImage,rasterImage}
+function DeckBuilding() {
 
-Object.keys(JokerKeys).forEach(function (key) {
-  JokerKeys[key] =  jQuery.extend(true,{},ImageKey);
-});
-Object.keys(CardKeys).forEach(function (key) {
-  CardKeys[key] = jQuery.extend(true,{},ImageKey);
-});
-Object.keys(DeckBuilding).forEach(function (key) {
-  if(key != "Jokers") {
-      DeckBuilding[key] =   jQuery.extend(true,{},CardKeys);
+  var DeckBuilding = {
+    Clubs: {},
+    Diamonds: {},
+    Hearts: {},
+    Spades: {},
+    Jokers : {}
+  };
+  var CardKeys = {
+    Two : {},
+    Three : {},
+    Four : {},
+    Five : {},
+    Six : {},
+    Seven : {},
+    Eight : {},
+    Nine : {},
+    Ten : {},
+    Jack : {},
+    Queen : {},
+    King : {},
+    Ace : {}
   }
-  else {
-      DeckBuilding[key] =  jQuery.extend(true,{},JokerKeys);
+  var JokerKeys = {
+    Red : {},
+    Black : {}
   }
-});
-Object.keys(DeckKey).forEach(function (key) {
-  DeckKey[key] = jQuery.extend(true,{},DeckBuilding);
-});
+  var ImageKey = {
+    Image: {}
+  }
 
-//need to figure out naming for image source and raster source
-Object.keys(DeckKey).forEach(function (DeckNumber) {
-  //One and Two
-    Object.keys(DeckKey[DeckNumber]).forEach(function (SuitNumber) {
-      //Suits and Jokers
-      Object.keys(DeckKey[DeckNumber][SuitNumber]).forEach(function (CardNumber) {
-            //Image, src, rastered
-            Object.keys(DeckKey[DeckNumber][SuitNumber][CardNumber]).forEach(function (ImageNumber) {
-                if(ImageNumber == "Image"){
-                  //the src property needs to be deep cloned
-                  var src = imageSource(DeckNumber,CardNumber,SuitNumber)
-                  if(DeckNumber == "One") {
-                    DeckRaster["One"] = rasterCreation(src,DeckNumber);
-                    DeckRaster["Two"] = rasterCopy(DeckRaster["One"]);
+  var DeckKey = {
+    One : {},
+    Two : {}
+  }
+  var DeckRaster = {
+    One: {},
+    Two: {}
+  }
+  //spread syntax allows an iterable to be expanded where object literals are expanded. basically allows you to not just reference when Object[key]= Object B.
 
-                    DeckKey["One"][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},DeckRaster["One"]);
-                    DeckKey["Two"][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},DeckRaster["Two"]);
+  Object.keys(JokerKeys).forEach(function (key) {
+    JokerKeys[key] =  jQuery.extend(true,{},ImageKey);
+  });
+  Object.keys(CardKeys).forEach(function (key) {
+    CardKeys[key] = jQuery.extend(true,{},ImageKey);
+  });
+  Object.keys(DeckBuilding).forEach(function (key) {
+    if(key != "Jokers") {
+        DeckBuilding[key] =   jQuery.extend(true,{},CardKeys);
+    }
+    else {
+        DeckBuilding[key] =  jQuery.extend(true,{},JokerKeys);
+    }
+  });
+  Object.keys(DeckKey).forEach(function (key) {
+    DeckKey[key] = jQuery.extend(true,{},DeckBuilding);
+  });
+
+  //need to figure out naming for image source and raster source
+  Object.keys(DeckKey).forEach(function (DeckNumber) {
+    //One and Two
+      Object.keys(DeckKey[DeckNumber]).forEach(function (SuitNumber) {
+        //Suits and Jokers
+        Object.keys(DeckKey[DeckNumber][SuitNumber]).forEach(function (CardNumber) {
+              //Image, src, rastered
+              Object.keys(DeckKey[DeckNumber][SuitNumber][CardNumber]).forEach(function (ImageNumber) {
+                  if(ImageNumber == "Image"){
+                    //the src property needs to be deep cloned
+                    var src = imageSource(DeckNumber,CardNumber,SuitNumber)
+                    if(DeckNumber == "One") {
+                      var RasterCreation = rasterCreation(src)
+                      DeckRaster["One"] = RasterCreation.rasterImage;
+                      DeckRaster["Two"] = RasterCreation.rasterCopy;
+
+                      DeckKey["One"][SuitNumber][CardNumber]["Image"]["rasterImage"] = jQuery.extend(true,{},DeckRaster["One"]);
+                      DeckKey["Two"][SuitNumber][CardNumber]["Image"]["rasterImage"] = jQuery.extend(true,{},DeckRaster["Two"]);
+                    }
                   }
-
-                  // console.log(DeckNumber)
-                  // console.log(DeckKey[DeckNumber][SuitNumber][CardNumber]["Image"].rasterImage.source)
-
-                }
-            });
+              });
+        });
       });
-    });
-});
+  });
+
+  return DeckKey;
+}
 //takes a card number and a suit, and returns a rastered image object
 function imageSource(DeckNumber,CardNumber,SuitNumber) {
   var mapping_numbers = {
@@ -150,31 +157,44 @@ function imageSource(DeckNumber,CardNumber,SuitNumber) {
   return src;
 }
 
-function rasterCreation(src,DeckNumber) {
+function rasterCreation(src) {
+
     var srcImage = new Image();
     srcImage.src = src
     var rasterImage = new paper.Raster(srcImage);
-    rasterImage.visible = false;
+    rasterImage.position = new paper.Point(0,0)
+
+    var rasterCopy = rasterImage.clone();
+    rasterCopy.position = new paper.Point(0,0)
+
     rasterImage.scale(0.2);
+    rasterCopy.scale(0.2);
+
+
+    rasterImage.visible = false;
+    rasterCopy.visible = false;
 
   var imgObj = {
     srcImage : srcImage,
-    rasterImage : rasterImage
+    rasterImage : rasterImage,
+    rasterCopy : rasterCopy
   }
   return imgObj;
 }
 //apparently this function only clones the last thing given to it
-function rasterCopy(rasterObject) {
-  var rasterCopy = rasterObject.rasterImage.clone();
-  rasterCopy.visible = true;
-  rasterCopy.scale(0.2);
+// function rasterCopy(rasterObject) {
+//   var rasterCopy = rasterObject.rasterImage.clone();
+//   rasterCopy.visible = false;
+//   rasterCopy.scale(0.2);
+//
+//   var imgObj = {
+//     srcImage : rasterObject.srcImage,
+//     rasterImage : rasterCopy
+//   }
+//   return imgObj;
+// }
 
-  var imgObj = {
-    srcImage : rasterObject.srcImage,
-    rasterImage : rasterCopy
-  }
-  return imgObj;
-}
+
 function cardSuitMapping(cardDrawn) {
   var Suit = cardDrawn["Suit"];
   var Card = cardDrawn["Card"];
@@ -236,16 +256,16 @@ var PField = new Array(4);
 for(var i = 0; i < 4 ; i++ ) {
   switch(i) {
     case 0:
-      PField [i] = new paper.Point(550,500);
+      PField [i] = new Point(550,500);
       break;
     case 1:
-      PField [i] = new paper.Point(500,450);
+      PField [i] = new Point(500,450);
       break;
     case 2:
-      PField [i] = new paper.Point(600,450);
+      PField [i] = new Point(600,450);
       break;
     case 3:
-      PField [i] = new paper.Point(550,400);
+      PField [i] = new Point(550,400);
       break;
   }
 }
@@ -290,12 +310,5 @@ var cardPositionP4 =  function() {
 }();
 
 
-//Creates wait function
-
-function wait(ms){
-   var start = new Date().getTime();
-   var end = start;
-   while(end < start + ms) {
-     end = new Date().getTime();
-  }
-}
+//Needs to be run before loading window to clone
+var DeckKey = DeckBuilding();
