@@ -63,7 +63,6 @@ function DeckBuilding() {
     Two: {}
   }
   //spread syntax allows an iterable to be expanded where object literals are expanded. basically allows you to not just reference when Object[key]= Object B.
-
   Object.keys(JokerKeys).forEach(function (key) {
     JokerKeys[key] =  jQuery.extend(true,{},ImageKey);
   });
@@ -90,18 +89,11 @@ function DeckBuilding() {
         Object.keys(DeckKey[DeckNumber][SuitNumber]).forEach(function (CardNumber) {
               //Image, src, rastered
               Object.keys(DeckKey[DeckNumber][SuitNumber][CardNumber]).forEach(function (ImageNumber) {
-                  if(ImageNumber == "Image"){
-                    //the src property needs to be deep cloned
-                    var src = imageSource(DeckNumber,CardNumber,SuitNumber)
-                    if(DeckNumber == "One") {
-                      var RasterCreation = rasterCreation(src)
-                      DeckRaster["One"] = RasterCreation.rasterImage;
-                      DeckRaster["Two"] = RasterCreation.rasterCopy;
+                if(ImageNumber == "Image"){
+                  //the src property needs to be deep cloned
+                  DeckKey[DeckNumber][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},imagePathing(CardNumber,SuitNumber));
+                }
 
-                      DeckKey["One"][SuitNumber][CardNumber]["Image"]["rasterImage"] = jQuery.extend(true,{},DeckRaster["One"]);
-                      DeckKey["Two"][SuitNumber][CardNumber]["Image"]["rasterImage"] = jQuery.extend(true,{},DeckRaster["Two"]);
-                    }
-                  }
               });
         });
       });
@@ -110,7 +102,7 @@ function DeckBuilding() {
   return DeckKey;
 }
 //takes a card number and a suit, and returns a rastered image object
-function imageSource(DeckNumber,CardNumber,SuitNumber) {
+function imagePathing(CardNumber,SuitNumber) {
   var mapping_numbers = {
     Two : "2",
     Three : "3",
@@ -154,47 +146,28 @@ function imageSource(DeckNumber,CardNumber,SuitNumber) {
   else {
       var src = "../assets/images/"+mapping_numbers[CardNumber]+"_"+mapping_suits[SuitNumber]+".png"
     }
-  return src;
-}
+  var srcImage = new Image();
+  srcImage.src = src
+  var rasterImage = new paper.Raster(srcImage);
+  var cloneImage = rasterImage.clone();
+  // var rasterize = rasterImage.rasterize();
+  // rasterize.scale(5);
+  rasterImage.visible = false;
+  rasterImage.scale(0.2);
+  cloneImage.visible = false;
+  cloneImage.scale(0.2);
 
-function rasterCreation(src) {
-
-    var srcImage = new Image();
-    srcImage.src = src
-    var rasterImage = new paper.Raster(srcImage);
-    rasterImage.position = new paper.Point(0,0)
-
-    var rasterCopy = rasterImage.clone();
-    rasterCopy.position = new paper.Point(0,0)
-
-    rasterImage.scale(0.2);
-    rasterCopy.scale(0.2);
-
-
-    rasterImage.visible = false;
-    rasterCopy.visible = false;
 
   var imgObj = {
     srcImage : srcImage,
     rasterImage : rasterImage,
-    rasterCopy : rasterCopy
+    cloneImage : cloneImage
   }
   return imgObj;
 }
-//apparently this function only clones the last thing given to it
-// function rasterCopy(rasterObject) {
-//   var rasterCopy = rasterObject.rasterImage.clone();
-//   rasterCopy.visible = false;
-//   rasterCopy.scale(0.2);
-//
-//   var imgObj = {
-//     srcImage : rasterObject.srcImage,
-//     rasterImage : rasterCopy
-//   }
-//   return imgObj;
-// }
 
-
+// 0 to 24 is Non joker cards
+// 25 and 26 are jokers for
 function cardSuitMapping(cardDrawn) {
   var Suit = cardDrawn["Suit"];
   var Card = cardDrawn["Card"];
@@ -219,30 +192,32 @@ function cardSuitMapping(cardDrawn) {
     10 : "Queen" ,
     11 : "King" ,
     12 : "Ace" ,
-    104 : "Red Joker" ,
-    105 : "Black Joker" ,
-    106 : "Red Joker" ,
-    107 : "Black Joker" ,
+    25 : "Red",
+    26 : "Black"
   }
-  var deckNumber = {
-    0 : "One" ,
-    1 : "Two"
-  }
+  var suitAdjust;
   var cardAdjust;
-  if(Card < 104) {
-    cardAdjust = mappingCard[Card % 12]
+  if(Card > 12 && Card < 26) {
+    cardAdjust = mappingCard[Card - 13];
   }
   else {
-    cardAdjust = mappingCard[Card]
+    cardAdjust = mappingCard[Card];
   }
+  if(Card > 25) {
+    suitAdjust = "Jokers";
+  }
+  else {
+    suitAdjust = mappingSuit[Suit];
+  }
+
   var deckAdjust = "One";
   if(Card > 12) {
-    deckAdjust = "Two"
+    deckAdjust = "Two";
   }
 
 
   var deckReturn = {
-    Suit : mappingSuit[Suit],
+    Suit : suitAdjust,
     Card : cardAdjust,
     Deck: deckAdjust
   }

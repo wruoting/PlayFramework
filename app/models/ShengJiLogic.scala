@@ -50,7 +50,7 @@ class ShengJiLogic {
     }
     //type Array[(Int, Int)]
     //Suit ranges from 0 to 3 (Spades, Hearts, Diamonds, Clubs)
-    //card ranges from 0 to 27 (2 to Ace then 2 to Ace again then 4 jokers)
+    //card ranges from 0 to 26 (2 to Ace then 2 to Ace again then 4 jokers)
       return randomCardList
 }
 
