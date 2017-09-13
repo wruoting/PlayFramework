@@ -2,6 +2,29 @@
   Game Graphics Engine
 */
 
+var ObjA = new Raster('../assets/images/CardBack.jpg');
+var ObjB = ObjA.clone();
+ObjA.visible=false;
+ObjB.visible=false;
+
+
+var objOA = {
+              A : ObjA,
+              B : ObjB
+            }
+var objOB = {}
+var foo = jQuery.extend(true,{},objOA);
+var foo2 = jQuery.extend(true,{},objOB);
+foo["A"].bringToFront()
+foo["A"].position = new Point(200,200)
+foo["A"].visible = true
+foo["A"].scale(0.2)
+
+foo["B"].bringToFront()
+foo["B"].position = new Point(100,200)
+foo["B"].visible = true
+
+
 window.onload = function() {
 
 //paper is the variable that is added to the images scope, and references the active PaperScope project and all Paper.js classes can be accessed
@@ -48,13 +71,8 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
               case 1:
 
                 var cardDrawn = requestCard(playerCount+1);
-                console.log(cardDrawn["Suit"])
-                console.log(cardDrawn["Card"])
                 //find from mapping what the card is drawn
                 var mappedCardDrawn = cardSuitMapping(cardDrawn);
-                console.log(mappedCardDrawn["Suit"])
-                console.log(mappedCardDrawn["Card"])
-                console.log(mappedCardDrawn["Deck"])
                 var xPosition = cardPosition[(playerCount/4)].x - PField[0].x;
                 var yPosition = cardPosition[(playerCount/4)].y - PField[0].y;
                 if(event.count % 15 == 0) {
