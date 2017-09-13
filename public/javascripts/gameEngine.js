@@ -57,7 +57,14 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
                 // console.log(DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"])
                 if(event.count % 15 == 0) {
                     //to find position :
-                    DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].bringToFront();
+                    var RasterizeImage = rasterCreation(
+                      DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"]["src"],
+                      mappedCardDrawn["Deck"],
+                      mappedCardDrawn["Suit"],
+                      mappedCardDrawn["Card"]
+                    );
+                    if()
+                    DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"]["src"].bringToFront();
                     DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = PField[0];
                     DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible= true;
                   }

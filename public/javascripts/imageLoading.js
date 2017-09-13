@@ -44,7 +44,10 @@ var JokerKeys = {
   Black : {}
 }
 var ImageKey = {
-  Image: {}
+  Image: {
+    src: {},
+    RasterImage: {}
+  }
 }
 
 var DeckKey = {
@@ -86,17 +89,7 @@ Object.keys(DeckKey).forEach(function (DeckNumber) {
                 if(ImageNumber == "Image"){
                   //the src property needs to be deep cloned
                   var src = imageSource(DeckNumber,CardNumber,SuitNumber)
-                  if(DeckNumber == "One") {
-                    DeckRaster["One"] = rasterCreation(src,DeckNumber);
-                    DeckRaster["Two"] = rasterCopy(DeckRaster["One"]);
-
-                    DeckKey["One"][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},DeckRaster["One"]);
-                    DeckKey["Two"][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},DeckRaster["Two"]);
-                  }
-
-                  // console.log(DeckNumber)
-                  // console.log(DeckKey[DeckNumber][SuitNumber][CardNumber]["Image"].rasterImage.source)
-
+                  DeckKey[DeckNumber][SuitNumber][CardNumber]["Image"]["src"] = jQuery.extend(true,{},src);
                 }
             });
       });
@@ -150,7 +143,7 @@ function imageSource(DeckNumber,CardNumber,SuitNumber) {
   return src;
 }
 
-function rasterCreation(src,DeckNumber) {
+function rasterCreation(src,DeckNumber,SuitNumber,CardNumber) {
     var srcImage = new Image();
     srcImage.src = src
     var rasterImage = new paper.Raster(srcImage);
