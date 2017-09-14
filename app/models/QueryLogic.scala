@@ -8,8 +8,8 @@ class QueryLogic {
   ***/
   def buildDeck(playerNumber: Int) : String = {
     var buildQuery = "INSERT INTO Hands (ID,"
-    for(i <- 1 to 26) {
-      if(i !=26) {
+    for(i <- 1 to 25) {
+      if(i !=25) {
         buildQuery += "Card"+i+", "
       }
       else{

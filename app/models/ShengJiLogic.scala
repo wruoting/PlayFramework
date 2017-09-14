@@ -39,9 +39,10 @@ class ShengJiLogic {
       var innerCardIndex=randomCards(i)
       var (suitNumber,cardNumber)=(0,0)
         //Find which suit it's in
-        if(innerCardIndex>=27) {
-          suitNumber=(innerCardIndex-innerCardIndex%27)/27
-          innerCardIndex=innerCardIndex%27
+        //27 cards per suit, 0 to 25 are normal cards, 26 card is joker
+        if(innerCardIndex>=26) {
+          suitNumber=(innerCardIndex-innerCardIndex%26)/26
+          innerCardIndex=innerCardIndex%26
         }
         //Find out what card it is
         cardNumber=innerCardIndex

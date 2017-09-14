@@ -3,16 +3,6 @@
 // */
 
 
-function testRequest(x) {
-  var Suit = x;
-  var Card = 26;
-  var cardDealt = {
-    "Suit" : Suit,
-    "Card" : Card
-  }
-  return cardDealt;
-}
-var testIncrement = 0;
 window.onload = function() {
 
 
@@ -56,21 +46,12 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
                 //only draw cards for player 1
             switch (cardProperties.playerID) {
               case 1:
-                //var cardDrawn = requestCard(playerCount+1);
-                var cardDrawn = testRequest(testIncrement);
-                if(testIncrement == 0) {
-                  testIncrement = 13
-                }
-                else {
-                  testIncrement = 0
-                }
+                var cardDrawn = requestCard(playerCount+1);
                 //find from mapping what the card is drawn
                 var mappedCardDrawn = cardSuitMapping(cardDrawn);
                 var xPosition = cardPosition[(playerCount/4)].x - PField[4].x;
                 var yPosition = cardPosition[(playerCount/4)].y - PField[4].y;
                 if(event.count % 15 == 0) {
-                  console.log(DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].source)
-
                     //to find position :
                     if(mappedCardDrawn["Deck"] == "One") {
                       DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].bringToFront();

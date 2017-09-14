@@ -186,9 +186,7 @@ function cardSuitMapping(cardDrawn) {
     9 : "Jack" ,
     10 : "Queen" ,
     11 : "King" ,
-    12 : "Ace" ,
-    26 : "Red",
-    27 : "Black"
+    12 : "Ace" 
   }
   var suitAdjust;
   var cardAdjust;
@@ -214,15 +212,19 @@ function cardSuitMapping(cardDrawn) {
   //red joker //need to correct
   if(Suit == 0 && Card == 26) {
     deckAdjust = "One";
+    cardAdjust = "Red";
   }
-  else if (Suit == 1 || && Card == 26) {
+  else if (Suit == 1 && Card == 26) {
     deckAdjust = "Two";
+    cardAdjust = "Red";
   }
-  if(Suit == 2 && Card == 27) {
+  if(Suit == 2 && Card == 276) {
     deckAdjust = "One";
+    cardAdjust = "Black";
   }
-  else if (Suit == 3 || && Card == 27) {
+  else if (Suit == 3 && Card == 26) {
     deckAdjust = "Two";
+    cardAdjust = "Black";
   }
 
 
