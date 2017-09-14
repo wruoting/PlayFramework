@@ -1,35 +1,12 @@
-/*
-  Game Graphics Engine
-*/
+// /*
+//   Game Graphics Engine
+// */
 
-var ObjA = new Raster('../assets/images/CardBack.jpg');
-var ObjB = ObjA.clone();
-ObjA.visible=false;
-ObjB.visible=false;
-
-
-var objOA = {
-              A : ObjA,
-              B : ObjB
-            }
-var objOB = {}
-var foo = jQuery.extend(true,{},objOA);
-var foo2 = jQuery.extend(true,{},objOB);
-foo["A"].bringToFront()
-foo["A"].position = new Point(200,200)
-foo["A"].visible = true
-foo["A"].scale(0.2)
-
-foo["B"].bringToFront()
-foo["B"].position = new Point(100,200)
-foo["B"].visible = true
 
 
 window.onload = function() {
 
 //paper is the variable that is added to the images scope, and references the active PaperScope project and all Paper.js classes can be accessed
-
-var DeckKey = DeckBuilding();
 
   var cardProperties = {
     playerID: 0,
@@ -165,26 +142,4 @@ function requestCard (index) {
   //type {Suit : Int,
 // Card : Int}
   return cardDrawn;
-}
-
-//Parameters: paper.Raster, Boolean, paper.Point
-//Return: null
-function chooseCard(renderedImage,validClick,PField,cardProperties) {
-  if(validClick) {
-    renderedImage.onClick = function(event) {
-        this.position = PField;
-        setTimeout(function() {renderedImage.visible= false},1000);
-        // $.get(jsRoutes.controllers.HomeController.startGame(2),function(data) {
-        // })
-
-      }
-  }
-}
-
-
-
-function main() {
-  //Start dealing
-  var startButton = document.createElement("DealButton");
-
 }

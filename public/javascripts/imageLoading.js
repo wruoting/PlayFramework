@@ -149,9 +149,7 @@ function imagePathing(CardNumber,SuitNumber) {
   var srcImage = new Image();
   srcImage.src = src
   var rasterImage = new paper.Raster(srcImage);
-  var cloneImage = rasterImage.clone();
-  // var rasterize = rasterImage.rasterize();
-  // rasterize.scale(5);
+  var cloneImage = new paper.Raster(srcImage);
   rasterImage.visible = false;
   rasterImage.scale(0.2);
   cloneImage.visible = false;
@@ -165,6 +163,8 @@ function imagePathing(CardNumber,SuitNumber) {
   }
   return imgObj;
 }
+
+
 
 // 0 to 24 is Non joker cards
 // 25 and 26 are jokers for
@@ -285,5 +285,5 @@ var cardPositionP4 =  function() {
 }();
 
 
-//Needs to be run before loading window to clone
+//build Deck
 var DeckKey = DeckBuilding();
