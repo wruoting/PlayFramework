@@ -3,8 +3,18 @@
 // */
 
 
-
+function testRequest(x) {
+  var Suit = x;
+  var Card = 26;
+  var cardDealt = {
+    "Suit" : Suit,
+    "Card" : Card
+  }
+  return cardDealt;
+}
+var testIncrement = 0;
 window.onload = function() {
+
 
 //paper is the variable that is added to the images scope, and references the active PaperScope project and all Paper.js classes can be accessed
 
@@ -46,22 +56,30 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
                 //only draw cards for player 1
             switch (cardProperties.playerID) {
               case 1:
-
-                var cardDrawn = requestCard(playerCount+1);
+                //var cardDrawn = requestCard(playerCount+1);
+                var cardDrawn = testRequest(testIncrement);
+                if(testIncrement == 0) {
+                  testIncrement = 13
+                }
+                else {
+                  testIncrement = 0
+                }
                 //find from mapping what the card is drawn
                 var mappedCardDrawn = cardSuitMapping(cardDrawn);
-                var xPosition = cardPosition[(playerCount/4)].x - PField[0].x;
-                var yPosition = cardPosition[(playerCount/4)].y - PField[0].y;
+                var xPosition = cardPosition[(playerCount/4)].x - PField[4].x;
+                var yPosition = cardPosition[(playerCount/4)].y - PField[4].y;
                 if(event.count % 15 == 0) {
+                  console.log(DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].source)
+
                     //to find position :
                     if(mappedCardDrawn["Deck"] == "One") {
                       DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].bringToFront();
-                      DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = PField[0];
+                      DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].position = PField[4];
                       DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["rasterImage"].visible= true;
                     }
                     else{
                       DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["cloneImage"].bringToFront();
-                      DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["cloneImage"].position = PField[0];
+                      DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["cloneImage"].position = PField[4];
                       DeckKey[mappedCardDrawn["Deck"]][mappedCardDrawn["Suit"]][mappedCardDrawn["Card"]]["Image"]["cloneImage"].visible= true;
                     }
                   }
@@ -73,16 +91,7 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
                   }
                 break;
               case 2:
-                if(event.count % 15 == 0) {
-                  copyCardback[playerOtherCount] = rasterBackOfCard.clone();
-                  copyCardback[playerOtherCount].bringToFront();
-                  copyCardback[playerOtherCount].visible= true;
-                  copyCardback[playerOtherCount].position = PField[0];
-                  copyCardback[playerOtherCount].rotate(90);
-                }
-                var xPosition = cardPositionP2[playerOtherCount/4].x - PField[0].x; //need to define other positions
-                var yPosition = cardPositionP2[playerOtherCount/4].y - PField[0].y;
-                copyCardback[playerOtherCount].translate(xPosition/15,yPosition/15);
+                CardBackCopy(copyCardback,playerOtherCount,rasterBackOfCard,cardPositionP2,PField[4],event.count);
                 break;
               case 3:
                 if(event.count % 15 == 0) {
@@ -120,6 +129,19 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
 } // dealCards
 
 
+}//onload
+
+function CardBackCopy(copyCardback,playerOtherCount,rasterBackOfCard,cardPosition,PField,eventCount) {
+  if(eventCount % 15 == 0) {
+    copyCardback[playerOtherCount] = rasterBackOfCard.clone();
+    copyCardback[playerOtherCount].bringToFront();
+    copyCardback[playerOtherCount].visible= true;
+    copyCardback[playerOtherCount].position = PField;
+    copyCardback[playerOtherCount].rotate(90);
+  }
+  var xPosition = cardPosition[playerOtherCount/4].x - PField.x; //need to define other positions
+  var yPosition = cardPosition[playerOtherCount/4].y - PField.y;
+  copyCardback[playerOtherCount].translate(xPosition/15,yPosition/15);
 }
 
 // Parameter : index from cardlist created

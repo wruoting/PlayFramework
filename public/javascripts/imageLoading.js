@@ -20,6 +20,8 @@ rasterDeal.position = new paper.Point(400,400)
 rasterDeal.visible = false;
 rasterDeal.scale(0.2);
 
+//build Deck
+var DeckKey = DeckBuilding();
 
 //Deck, Suit, Card, Image, {srcImage,rasterImage}
 function DeckBuilding() {
@@ -127,13 +129,6 @@ function imagePathing(CardNumber,SuitNumber) {
     Hearts : "hearts",
     Jokers : "joker"
   }
-  var mapping_color = {
-    Clubs : "clubs",
-    Diamonds : "diamonds",
-    Spades : "spades",
-    Hearts : "hearts",
-    Jokers : "joker"
-  }
 
   if(SuitNumber != "Jokers") {
     if(CardNumber == "Jack" || CardNumber == "King" || CardNumber =="Queen") {
@@ -192,8 +187,8 @@ function cardSuitMapping(cardDrawn) {
     10 : "Queen" ,
     11 : "King" ,
     12 : "Ace" ,
-    25 : "Red",
-    26 : "Black"
+    26 : "Red",
+    27 : "Black"
   }
   var suitAdjust;
   var cardAdjust;
@@ -209,11 +204,28 @@ function cardSuitMapping(cardDrawn) {
   else {
     suitAdjust = mappingSuit[Suit];
   }
-
+  //for non jokers only
   var deckAdjust = "One";
-  if(Card > 12) {
+  if(Card > 12 && Card < 26) {
     deckAdjust = "Two";
   }
+
+  //jokers
+  //red joker //need to correct
+  if(Suit == 0 && Card == 26) {
+    deckAdjust = "One";
+  }
+  else if (Suit == 1 || && Card == 26) {
+    deckAdjust = "Two";
+  }
+  if(Suit == 2 && Card == 27) {
+    deckAdjust = "One";
+  }
+  else if (Suit == 3 || && Card == 27) {
+    deckAdjust = "Two";
+  }
+
+
 
 
   var deckReturn = {
@@ -227,8 +239,8 @@ function cardSuitMapping(cardDrawn) {
 
 
 //Center of the field
-var PField = new Array(4);
-for(var i = 0; i < 4 ; i++ ) {
+var PField = new Array(5);
+for(var i = 0; i < 5 ; i++ ) {
   switch(i) {
     case 0:
       PField [i] = new Point(550,500);
@@ -241,6 +253,9 @@ for(var i = 0; i < 4 ; i++ ) {
       break;
     case 3:
       PField [i] = new Point(550,400);
+      break;
+    case 4:
+      PField [i] = new Point(550,450);
       break;
   }
 }
@@ -283,7 +298,3 @@ var cardPositionP4 =  function() {
  }
  return cardPositionP4;
 }();
-
-
-//build Deck
-var DeckKey = DeckBuilding();
