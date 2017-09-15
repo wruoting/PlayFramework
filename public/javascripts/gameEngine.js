@@ -33,10 +33,10 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
       paper.view.attach('frame', onFrame);
         function onFrame(event) {
 
-            if(event.count % 15 == 0 && event.count > 14) {
-              playerCount++;
-              playerOtherCount++;
-            }
+        if(event.count % 15 == 0 && event.count > 14) {
+          playerCount++;
+          playerOtherCount++;
+        }
 
         if(playerCount < 100) {
             cardProperties.playerID = (playerCount+1)%4;
@@ -72,31 +72,13 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
                   }
                 break;
               case 2:
-                CardBackCopy(copyCardback,playerOtherCount,rasterBackOfCard,cardPositionP2,PField[4],event.count);
+                CardBackCopy(copyCardback,playerOtherCount,rasterBackOfCard,cardPositionP2,PField[4],event.count,1,0);
                 break;
               case 3:
-                if(event.count % 15 == 0) {
-                  copyCardback[playerOtherCount] = rasterBackOfCard.clone();
-                  copyCardback[playerOtherCount].bringToFront();
-                  copyCardback[playerOtherCount].visible= true;
-                  copyCardback[playerOtherCount].position = PField[0];
-                  copyCardback[playerOtherCount].rotate(180);
-                }
-                var xPosition = cardPositionP3[(playerOtherCount-1)/4].x - PField[0].x; //need to define other positions
-                var yPosition = cardPositionP3[(playerOtherCount-1)/4].y - PField[0].y;
-                copyCardback[playerOtherCount].translate(xPosition/15,yPosition/15);
+                CardBackCopy(copyCardback,playerOtherCount,rasterBackOfCard,cardPositionP3,PField[4],event.count,2,1);
                 break;
               case 0:
-                if(event.count % 15 == 0) {
-                  copyCardback[playerOtherCount] = rasterBackOfCard.clone();
-                  copyCardback[playerOtherCount].bringToFront();
-                  copyCardback[playerOtherCount].visible= true;
-                  copyCardback[playerOtherCount].position = PField[0];
-                  copyCardback[playerOtherCount].rotate(270);
-                }
-                var xPosition = cardPositionP4[(playerOtherCount-2)/4].x - PField[0].x; //need to define other positions
-                var yPosition = cardPositionP4[(playerOtherCount-2)/4].y - PField[0].y;
-                copyCardback[playerOtherCount].translate(xPosition/15,yPosition/15);
+                CardBackCopy(copyCardback,playerOtherCount,rasterBackOfCard,cardPositionP4,PField[4],event.count,3,2);
                 break;
               default:
               break;
@@ -112,16 +94,18 @@ function dealCards(rasterDeal,cardProperties,DeckKey,PField) {
 
 }//onload
 
-function CardBackCopy(copyCardback,playerOtherCount,rasterBackOfCard,cardPosition,PField,eventCount) {
+//copyCardback: array that will hold clones of the back of the card
+//playerOtherCount:
+function CardBackCopy(copyCardback,playerOtherCount,rasterBackOfCard,cardPosition,PField,eventCount,PlayerN,offSet) {
   if(eventCount % 15 == 0) {
     copyCardback[playerOtherCount] = rasterBackOfCard.clone();
     copyCardback[playerOtherCount].bringToFront();
     copyCardback[playerOtherCount].visible= true;
     copyCardback[playerOtherCount].position = PField;
-    copyCardback[playerOtherCount].rotate(90);
+    copyCardback[playerOtherCount].rotate(90*PlayerN);
   }
-  var xPosition = cardPosition[playerOtherCount/4].x - PField.x; //need to define other positions
-  var yPosition = cardPosition[playerOtherCount/4].y - PField.y;
+  var xPosition = cardPosition[(playerOtherCount-offSet)/4].x - PField.x; //need to define other positions
+  var yPosition = cardPosition[(playerOtherCount-offSet)/4].y - PField.y;
   copyCardback[playerOtherCount].translate(xPosition/15,yPosition/15);
 }
 
