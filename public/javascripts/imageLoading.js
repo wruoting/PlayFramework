@@ -5,23 +5,88 @@ var ctx = canvas.getContext("2d");
 paper.install(window);
 paper.setup(canvas);
 
+var globals = {};
 
 //Declare all images used
-var BackOfCard = new Image();
-BackOfCard.src = "../assets/images/CardBack.jpg";
-var rasterBackOfCard = new paper.Raster(BackOfCard);
-rasterBackOfCard.visible = false;
-rasterBackOfCard.scale(0.2);
+globals.BackOfCard = new Image();
+globals.BackOfCard.src = "../assets/images/CardBack.jpg";
+globals.rasterBackOfCard = new paper.Raster(globals.BackOfCard);
+globals.rasterBackOfCard.visible = false;
+globals.rasterBackOfCard.scale(0.2);
 
-var DealButton = new Image();
-DealButton.src = "../assets/images/DealButton.jpg";
-var rasterDeal = new paper.Raster(DealButton);
-rasterDeal.position = new paper.Point(400,400)
-rasterDeal.visible = false;
-rasterDeal.scale(0.2);
+globals.DealButton = new Image();
+globals.DealButton.src = "../assets/images/DealButton.jpg";
+globals.rasterDeal = new paper.Raster(globals.DealButton);
+globals.rasterDeal.position = new paper.Point(400,400)
+globals.rasterDeal.visible = false;
+globals.rasterDeal.scale(0.2);
 
 //build Deck
-var DeckKey = DeckBuilding();
+globals.DeckKey = DeckBuilding();
+
+//Center of the field
+globals.PField = new Array(5);
+for(var i = 0; i < 5 ; i++ ) {
+  switch(i) {
+    case 0:
+      globals.PField [i] = new Point(550,500);
+      break;
+    case 1:
+      globals.PField [i] = new Point(500,450);
+      break;
+    case 2:
+      globals.PField [i] = new Point(600,450);
+      break;
+    case 3:
+      globals.PField [i] = new Point(550,400);
+      break;
+    case 4:
+      globals.PField [i] = new Point(550,450);
+      break;
+  }
+}
+
+// //Creates the spaces for cards
+// //Parameters: n/a
+// //Return: CardPosition: Array
+ globals.CardPosition =  function() {
+  var CardPosition = new Array(26);
+  for(var i = 0;i<25;i++) {
+    var displace = 350 + i*20;
+    CardPosition [i] = new paper.Point(displace,800);
+  }
+  return CardPosition;
+}(); //this is a self invoking function since it has () at the end. Only runs once since it returns an array once.
+
+globals.CardPositionP2 =  function() {
+ var CardPositionP2 = new Array(26);
+ for(var i = 0;i<25;i++) {
+   var displace = 675 - i*20;
+   CardPositionP2 [i] = new paper.Point(1100,displace);
+ }
+ return CardPositionP2;
+}();
+
+globals.CardPositionP3 =  function() {
+ var CardPositionP3 = new Array(26);
+ for(var i = 0;i<25;i++) {
+   var displace = 850 - i*20;
+   CardPositionP3 [i] = new paper.Point(displace,100);
+ }
+ return CardPositionP3;
+}();
+
+globals.CardPositionP4 =  function() {
+ var CardPositionP4 = new Array(26);
+ for(var i = 0;i<25;i++) {
+   var displace = 225 + i*20;
+   CardPositionP4 [i] = new paper.Point(100,displace);
+ }
+ return CardPositionP4;
+}();
+
+
+
 
 //Deck, Suit, Card, Image, {srcImage,rasterImage}
 function DeckBuilding() {
@@ -93,7 +158,7 @@ function DeckBuilding() {
               Object.keys(DeckKey[DeckNumber][SuitNumber][CardNumber]).forEach(function (ImageNumber) {
                 if(ImageNumber == "Image"){
                   //the src property needs to be deep cloned
-                  DeckKey[DeckNumber][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},imagePathing(CardNumber,SuitNumber));
+                  DeckKey[DeckNumber][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},ImagePathing(CardNumber,SuitNumber));
                 }
 
               });
@@ -104,7 +169,7 @@ function DeckBuilding() {
   return DeckKey;
 }
 //takes a card number and a suit, and returns a rastered image object
-function imagePathing(CardNumber,SuitNumber) {
+function ImagePathing(CardNumber,SuitNumber) {
   var mapping_numbers = {
     Two : "2",
     Three : "3",
@@ -163,7 +228,7 @@ function imagePathing(CardNumber,SuitNumber) {
 
 // 0 to 24 is Non joker cards
 // 25 and 26 are jokers for
-function cardSuitMapping(cardDrawn) {
+function CardSuitMapping(cardDrawn) {
   var Suit = cardDrawn["Suit"];
   var Card = cardDrawn["Card"];
 
@@ -239,65 +304,3 @@ function cardSuitMapping(cardDrawn) {
 
   return deckReturn;
 }
-
-
-//Center of the field
-var PField = new Array(5);
-for(var i = 0; i < 5 ; i++ ) {
-  switch(i) {
-    case 0:
-      PField [i] = new Point(550,500);
-      break;
-    case 1:
-      PField [i] = new Point(500,450);
-      break;
-    case 2:
-      PField [i] = new Point(600,450);
-      break;
-    case 3:
-      PField [i] = new Point(550,400);
-      break;
-    case 4:
-      PField [i] = new Point(550,450);
-      break;
-  }
-}
-
-// //Creates the spaces for cards
-// //Parameters: n/a
-// //Return: cardPosition: Array
- var cardPosition =  function() {
-  var cardPosition = new Array(26);
-  for(var i = 0;i<25;i++) {
-    var displace = 350 + i*20;
-    cardPosition [i] = new paper.Point(displace,800);
-  }
-  return cardPosition;
-}(); //this is a self invoking function since it has () at the end. Only runs once since it returns an array once.
-
-var cardPositionP2 =  function() {
- var cardPositionP2 = new Array(26);
- for(var i = 0;i<25;i++) {
-   var displace = 675 - i*20;
-   cardPositionP2 [i] = new paper.Point(1100,displace);
- }
- return cardPositionP2;
-}();
-
-var cardPositionP3 =  function() {
- var cardPositionP3 = new Array(26);
- for(var i = 0;i<25;i++) {
-   var displace = 850 - i*20;
-   cardPositionP3 [i] = new paper.Point(displace,100);
- }
- return cardPositionP3;
-}();
-
-var cardPositionP4 =  function() {
- var cardPositionP4 = new Array(26);
- for(var i = 0;i<25;i++) {
-   var displace = 225 + i*20;
-   cardPositionP4 [i] = new paper.Point(100,displace);
- }
- return cardPositionP4;
-}();
