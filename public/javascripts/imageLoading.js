@@ -6,6 +6,8 @@ paper.install(window);
 paper.setup(canvas);
 
 var globals = {};
+//Set first instance of game to iterate here
+globals.GameLoadingInstance = 1;
 
 //Declare all images used
 globals.BackOfCard = new Image();

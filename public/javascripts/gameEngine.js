@@ -14,13 +14,13 @@ window.onload = function() {
     cardState: 0
   }
 
-  DealCards(globals.rasterDeal,cardProperties,globals.DeckKey,globals.PField);
+  DealCards(globals.rasterDeal,cardProperties,globals.DeckKey,globals.PField,globals.GameLoadingInstance);
   globals.rasterDeal.visible = true;
 
 }//onload
 
 //rendered image is the deal button
-function DealCards(rasterDeal,cardProperties,DeckKey,PField) {
+function DealCards(rasterDeal,cardProperties,DeckKey,PField,GameLoadingInstance) {
 
   //determine based on the player number what the card number, image, and position
   rasterDeal.onClick = function(event) {
@@ -70,8 +70,41 @@ function DealCards(rasterDeal,cardProperties,DeckKey,PField) {
   }
 }
 
-function ValidTrumpSuitClick() {
+//needs to return the number of the card that is trump
+function ValidTrumpSuitClick(GameLoadingInstance) {
+  switch(GameLoadingInstance){
+    case 1:
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+    case 4:
+      break;
+    case 5:
+      break;
+    case 6:
+      break;
+    case 7:
+      break;
+    case 8:
+      break;
+    case 9:
+      break;
+    case 10:
+      break;
+    case 11:
+      break;
+    case 12:
+      break;
+    case 13:
+      break;
+    case 14:
+      break;
+    default:
+      return -1;
 
+  }
 }
 
 //playuerCount
