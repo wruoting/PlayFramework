@@ -74,6 +74,7 @@ function DealCards(rasterDeal,cardProperties,DeckKey,PField,GameLoadingInstance)
 function ValidTrumpSuitClick(GameLoadingInstance) {
   switch(GameLoadingInstance){
     case 1:
+
       break;
     case 2:
       break;
@@ -144,7 +145,7 @@ function MainPlayerCard(playerCount,eventCount) {
 //PField: center stage position for 4 spots for card dealing (includes deck start position)
 //eventCount: event counter
 //PlayerN: for rotation of card
-//offSet: counter for determining position
+//offSet: counter for determining position, 0 for player 2, 1 for player 3, etc.
 function CardBackCopy(copyCardback,playerOtherCount,rasterBackOfCard,CardPosition,PField,eventCount,PlayerN,offSet) {
   if(eventCount % 15 == 0) {
     copyCardback[playerOtherCount] = rasterBackOfCard.clone();

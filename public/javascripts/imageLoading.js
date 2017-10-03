@@ -8,6 +8,7 @@ paper.setup(canvas);
 var globals = {};
 //Set first instance of game to iterate here
 globals.GameLoadingInstance = 1;
+globals.CardBeingPlayed = 1;
 
 //Declare all images used
 globals.BackOfCard = new Image();
@@ -120,7 +121,12 @@ function DeckBuilding() {
     Black : {}
   }
   var ImageKey = {
-    Image: {}
+    Image: {},
+    Properties: {
+      TrumpNumber: {}
+      TrumpSuit: {}
+      HandIndex: {}
+    }
   }
 
   var DeckKey = {
@@ -162,6 +168,11 @@ function DeckBuilding() {
                   //the src property needs to be deep cloned
                   DeckKey[DeckNumber][SuitNumber][CardNumber]["Image"] = jQuery.extend(true,{},ImagePathing(CardNumber,SuitNumber));
                 }
+                if(ImageNumber == "Properties") {
+                  var IsTrump = TrumpSuitMapping(globals.CardBeingPlayed);
+                  DeckKey[DeckNumber][SuitNumber][CardNumber]["Properties"]["TrumpNumber"] = TrumpNumberMapping(globals.CardBeingPlayed, CardNumber);
+                  DeckKey[DeckNumber][SuitNumber][CardNumber]["Properties"]["HandIndex"] = QueueList(IsTrump, SuitNumber, CardNumber, DeckNumber);
+                }
 
               });
         });
@@ -169,6 +180,21 @@ function DeckBuilding() {
   });
 
   return DeckKey;
+}
+
+//returns 0 if not trump, returns 1 if trump
+function TrumpNumberMapping(CardBeingPlayed, CardNumber) {
+  if(CardNumber == CardBeingPlayed) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+}
+
+//returns position in queue from 0 to 24 for each card in your hand
+function QueueList(IsTrump, SuitNumber, CardNumber, DeckNumber) {
+  
 }
 //takes a card number and a suit, and returns a rastered image object
 function ImagePathing(CardNumber,SuitNumber) {
@@ -230,6 +256,11 @@ function ImagePathing(CardNumber,SuitNumber) {
 
 // 0 to 24 is Non joker cards
 // 25 and 26 are jokers for
+//Returns:   eg. var deckReturn = {
+  //   Suit: "Spades",
+  //   Card: "Two",
+  //   Deck: "One"
+  // }
 function CardSuitMapping(cardDrawn) {
   var Suit = cardDrawn["Suit"];
   var Card = cardDrawn["Card"];
