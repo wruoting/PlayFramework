@@ -194,7 +194,7 @@ function TrumpNumberMapping(CardBeingPlayed, CardNumber) {
 
 //returns position in queue from 0 to 24 for each card in your hand
 function QueueList(IsTrump, SuitNumber, CardNumber, DeckNumber) {
-  
+  return [TrumpSpace,SuitSpace,DeckSpace,CardSpace]
 }
 //takes a card number and a suit, and returns a rastered image object
 function ImagePathing(CardNumber,SuitNumber) {
