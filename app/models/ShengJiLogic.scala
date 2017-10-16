@@ -40,6 +40,12 @@ class ShengJiLogic {
     return for(x <- 0 until 4) {
       yield IndexedSeq.fill(27)(0)
     }
+    // pure functional for loops
+    return for(y <- 0 until 4) {
+      yield for(x <- 0 until 27) {
+        yield 0
+      }
+    }
   }
 
 
