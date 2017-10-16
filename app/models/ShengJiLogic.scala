@@ -6,6 +6,13 @@ class ShengJiLogic {
   Return: Array with one value for each card
   Use: Creates an Empty CardBase
   ***/
+  // ----- USE SCALADOC NOTATION ----
+  // You can use the 'doc' command in sbt to create documentation
+  /**
+   * Creates empty card base.
+   * @param numberOfDecks The number of decks to initialize.
+   * @return Empty decks
+   */
   def createCardBase(numberOfDecks:Int) : Array[Array[Int]] = {
     val placeholderNumberOfDecks=numberOfDecks
     var cardList=Array.ofDim[Int](4,27)
@@ -15,6 +22,24 @@ class ShengJiLogic {
             }
           }
     return cardList
+  }
+  // ----- USE FUNCTIONAL CODE ------
+  // Avoid side effects, avoid vars and for loops, prefer immutability, etc.
+  // Also use more general datastructures if the specifics of implementation (mutability, etc) does not matter.
+  /**
+   * Functional examples for creating an empty card base.
+   * @param numDecks Number of decks
+   * @return Empty decks
+   */
+  def createCardBase2(numDecks: Int): IndexedSeq[IndexedSeq[Int]] = {
+    // use range and fill
+    return (0 until 4).map(IndexedSeq.fill(27)(0))
+    // use tabulate
+    return IndexedSeq.tabulate(4,27) { (x,y) => 0 }
+    // use functional for loop and fill
+    return for(x <- 0 until 4) {
+      yield IndexedSeq.fill(27)(0)
+    }
   }
 
 
@@ -59,12 +84,10 @@ class ShengJiLogic {
 
 
   def showCards(cardBase: Array[(Int,Int)]) {
-
     for(i <- 0 to 107) {
       print(cardBase(i)._1+" "+cardBase(i)._2)
       println()
     }
-
   }
 
 }
