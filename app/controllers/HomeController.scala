@@ -13,7 +13,7 @@ import models._
  * application's home page.
  */
 @Singleton
-class HomeController @Inject() (db: Database)  extends Controller {
+class HomeController @Inject() (db: Database) extends Controller {
 
 
   def index = Action {
